@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual University - index</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#36BFFA',
+            accent: '#FF7D00',
+            dark: '#1D2939',
+            light: '#F9FAFB'
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .bg-gradient-primary {
+        background: linear-gradient(135deg, #165DFF 0%, #36BFFA 100%);
+      }
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+    }
+  </style>
+</head>
+
+<body class="font-inter text-dark bg-light">
+  <!-- 导航栏 -->
+    <header id="navbar" class="fixed w-full z-50 transition-all duration-300">
+      <div class="container mx-auto px-4 py-3 flex items-center justify-between bg-white/90 backdrop-blur-md shadow-sm">
+        <a href="#" class="flex items-center space-x-2">
+          <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+            <i class="fa fa-graduation-cap text-white text-xl"></i>
+          </div>
+          <span class="text-xl font-bold text-primary">Virtual University</span>
+        </a>
+      
+      <!-- 桌面导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="font-medium text-dark hover:text-primary transition-colors">Home</a>
+        <a href="undergraduate1.html" class="font-medium text-primary border-b-2 border-primary">Undergraduate</a>
+        <a href="master1.html" class="font-medium text-dark hover:text-primary transition-colors">Master</a>
+        <a href="phd.html" class="font-medium text-dark hover:text-primary transition-colors">PhD</a>
+        <a href="application.html" class="font-medium text-dark hover:text-primary transition-colors">Application</a>
+        <a href="chat.html" id="chat-btn" class="ml-4 px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center">
+        <i class="fa fa-comments-o mr-2"></i>AI Assistant</a>
+
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="menu-toggle" class="md:hidden text-dark focus:outline-none">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="index.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Home</a>
+        <a href="#" class="font-medium text-primary">Undergraduate</a>
+        <a href="graduate.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Master</a>
+        <a href="phd.html" class="font-medium text-dark hover:text-primary transition-colors py-2">PhD</a>
+        <a href="application.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Application</a>
+        <a href="chat.html" id="open-ai-btn-mobile" class="px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center">
+        <i class="fa fa-comments-o mr-2"></i>AI Assistant</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main>
+    <!-- 英雄区域 -->
+    <section class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-primary text-white">
+      <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0">
+          <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-shadow mb-6">
+            Undergraduate<br>Unlock an extraordinary future
+          </h1>
+          <p class="text-lg md:text-xl mb-8 max-w-xl">
+            The excellent undergraduate education at the university focuses on cultivating students' critical thinking, innovation ability and practical experience, laying a solid foundation for future career development and postgraduate studies.
+          </p>
+          <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="#programs" class="px-8 py-3 bg-white text-primary font-medium rounded-lg hover:bg-opacity-90 transition-colors text-center">
+              Explore
+            </a>
+            <a href="application.html" class="px-8 py-3 bg-transparent border-2 border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors text-center">
+              Apply Now
+            </a>
+          </div>
+        </div>
+        <div class="md:w-1/2 relative">
+          <div class="relative z-10 rounded-xl overflow-hidden shadow-2xl">
+            <img src="https://fastly.picsum.photos/id/1/5000/3333.jpg?hmac=Asv2DU3rA_5D1xSe22xZK47WEAN0wjWeFOhzd13ujW4" alt="Undergraduate students discussing in class" class="w-full h-auto">
+          </div>
+          <div class="absolute -bottom-6 -right-6 w-64 h-64 bg-secondary rounded-full opacity-20 blur-3xl -z-10"></div>
+          <div class="absolute -top-6 -left-6 w-64 h-64 bg-accent rounded-full opacity-10 blur-3xl -z-10"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 本科项目概览 -->
+    <section id="programs" class="py-16 bg-light">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Explore Undergraduate Programs</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            We offer more than 120 undergraduate majors in engineering, science, humanities, social sciences, business and more, helping students discover their passions and develop professional skills.
+          </p>
+        </div>
+        
+        <!-- 学科分类标签 -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+          <button class="px-6 py-2 bg-primary text-white rounded-full">All majors</button>
+          <button class="px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full">College of Engineering</button>
+          <button class="px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full">College of Science</button>
+          <button class="px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full">College of Business</button>
+          <button class="px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full">Liberal Arts College</button>
+          <button class="px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full">College of Medical</button>
+          <button class="px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full">College of Art</button>
+        </div>
+        
+        <!-- 项目列表 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- 项目卡片1 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://fastly.picsum.photos/id/9/5000/3269.jpg?hmac=cZKbaLeduq7rNB8X-bigYO8bvPIWtT-mh8GRXtU3vPc" alt="计算机科学专业" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Computer Science</h3>
+                <span class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">Hot</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Cultivate students' mastery of computer theory and practical skills to adapt to the rapidly changing demands of the technology industry.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 4 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Bachelor of Science
+                </div>
+              </div>
+              <a href="undergraduateProject.html" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                More Details
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片2 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1005/600/400" alt="金融专业" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Finance</h3>
+                <span class="px-3 py-1 bg-accent/10 text-accent text-sm rounded-full">High Demand</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Provide comprehensive financial knowledge and analytical tools to cultivate students' leadership and innovation capabilities in the financial field.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 4 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Bachelor of Business
+                </div>
+              </div>
+              <a href="#finance" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                More Details
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片3 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1010/600/400" alt="生物医学工程专业" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Biomedical Engineering</h3>
+                <span class="px-3 py-1 bg-secondary/10 text-secondary text-sm rounded-full">Innovation</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Combining engineering principles with biomedical science, this program aims to cultivate students' ability to design and develop medical devices and systems.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 4 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Bachelor of Engineering
+                </div>
+              </div>
+              <a href="#biomedical-engineering" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                More Details
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片4 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1025/600/400" alt="电子工程专业" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Electronic Engineering</h3>
+                <span class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">Hot</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Cultivate students' mastery of core knowledge such as electronic circuit design, signal processing and communication systems, and adapt to the development needs of the electronic information industry.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 4 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Bachelor of Engineering
+                </div>
+              </div>
+              <a href="#electrical-engineering" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                More Details
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片5 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1035/600/400" alt="心理学专业" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Psychology</h3>
+                <span class="px-3 py-1 bg-accent/10 text-accent text-sm rounded-full">High demand</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Explore human behavior and psychological processes, and cultivate students' professional capabilities in fields such as psychological counseling, human resource management, and market research.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 4 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Bachelor of Liberal Arts
+                </div>
+              </div>
+              <a href="#psychology" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                More Details
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片6 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1060/600/400" alt="环境科学专业" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Environmental Science</h3>
+                <span class="px-3 py-1 bg-secondary/10 text-secondary text-sm rounded-full">Innovation</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Study the interaction between human activities and the natural environment, and cultivate students' ability to solve environmental problems and promote sustainable development.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 4 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Bachelor of Science
+                </div>
+              </div>
+              <a href="#environmental-science" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                More Details
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-10">
+          <a href="undergraduate2.html" class="inline-flex items-center text-primary font-medium hover:underline">
+            View all undergraduate programs <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- 学术资源 -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Undergraduate Learning Resources</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            We offer abundant academic resources and support to help students succeed academically.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- 资源1 -->
+          <div class="bg-light rounded-xl p-8 shadow-sm card-hover">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary text-2xl mb-6">
+              <i class="fa fa-book"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Academic Support Center</h3>
+            <p class="text-gray-600 mb-6">
+              Offer course tutoring, learning skills training and academic writing guidance to help students overcome learning difficulties and improve learning efficiency.
+            </p>
+            <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+              More Details <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+          
+          <!-- 资源2 -->
+          <div class="bg-light rounded-xl p-8 shadow-sm card-hover">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary text-2xl mb-6">
+              <i class="fa fa-users"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Research Opportunities</h3>
+            <p class="text-gray-600 mb-6">
+              Encourage undergraduate students to participate in teachers' research projects, provide research funds and laboratory resources, and cultivate students' research capabilities.
+            </p>
+            <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+              More Details <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+          
+          <!-- 资源3 -->
+          <div class="bg-light rounded-xl p-8 shadow-sm card-hover">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary text-2xl mb-6">
+              <i class="fa fa-globe"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">International Exchange</h3>
+            <p class="text-gray-600 mb-6">
+              Establish cooperative relationships with top universities around the world, offering exchange student programs, summer courses and international internship opportunities.
+            </p>
+            <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+              More Details <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   <!-- 申请流程 -->
+    <section id="application" class="py-16 bg-light">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Apply for Undergraduate Programs</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            To learn how to apply for undergraduate programs at outstanding universities, our admissions team will provide you with full support throughout the process.
+          </p>
+        </div>
+        
+        <!-- 申请步骤 -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-8">
+          <h3 class="text-2xl font-bold mb-8">Application Steps</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+            <!-- 步骤1 -->
+            <div class="text-center">
+              <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                1
+              </div>
+              <h4 class="text-xl font-bold mb-2">Choose Program</h4>
+              <p class="text-gray-600">
+                Browse our undergraduate programs and choose the major that suits you best. Consider your interests, career goals and academic background.
+              </p>
+            </div>
+            
+            <!-- 步骤2 -->
+            <div class="text-center">
+              <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                2
+              </div>
+              <h4 class="text-xl font-bold mb-2">Prepare Materials</h4>
+              <p class="text-gray-600">
+                Prepare application materials based on the selected program, including high school transcripts, recommendation letters, personal statements, etc.
+              </p>
+            </div>
+            
+            <!-- 步骤3 -->
+            <div class="text-center">
+              <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                3
+              </div>
+              <h4 class="text-xl font-bold mb-2">Submit Application</h4>
+              <p class="text-gray-600">
+                Submit your application through our online application system and pay the application fee. Make sure all materials are submitted before the deadline.
+              </p>
+            </div>
+            
+            <!-- 步骤4 -->
+            <div class="text-center">
+              <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                4
+              </div>
+              <h4 class="text-xl font-bold mb-2">Interview and Evaluation</h4>
+              <p class="text-gray-600">
+                Some majors may require interviews or additional tests. The admissions committee will evaluate your application materials and make an admission decision.
+              </p>
+            </div>
+            
+            <!-- 步骤5 -->
+            <div class="text-center">
+              <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                5
+              </div>
+              <h4 class="text-xl font-bold mb-2">Admitted</h4>
+              <p class="text-gray-600">
+                After receiving the admission notice, complete the registration procedures as instructed, pay the tuition deposit and get ready for enrollment.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 时间轴 -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-8">
+          <h3 class="text-2xl font-bold mb-8">Application Timeline</h3>
+          
+          <div class="space-y-8 timeline">
+            <!-- 早申请 -->
+            <div class="timeline-item">
+              <div class="flex">
+                <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-xl font-bold mb-2">Early Application</h4>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-light rounded-xl p-4">
+                      <h5 class="font-bold text-primary mb-2">Deadline</h5>
+                      <p class="text-gray-600">November 1st</p>
+                    </div>
+                    <div class="bg-light rounded-xl p-4">
+                      <h5 class="font-bold text-primary mb-2">Admission Notice</h5>
+                      <p class="text-gray-600">December 15th</p>
+                    </div>
+                  </div>
+                  <p class="text-gray-600">
+                    Early Application is a non-binding application option suitable for students who have already determined an outstanding university as their first choice.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 常规申请 -->
+            <div class="timeline-item">
+              <div class="flex">
+                <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-xl font-bold mb-2">Regular Application</h4>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-light rounded-xl p-4">
+                      <h5 class="font-bold text-primary mb-2">Deadline</h5>
+                      <p class="text-gray-600">January 15th</p>
+                    </div>
+                    <div class="bg-light rounded-xl p-4">
+                      <h5 class="font-bold text-primary mb-2">Admission Notice</h5>
+                      <p class="text-gray-600">April 1st</p>
+                    </div>
+                  </div>
+                  <p class="text-gray-600">
+                    The regular application is the option chosen by most students, offering more time to prepare application materials.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 国际学生申请 -->
+            <div class="timeline-item">
+              <div class="flex">
+                <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+                  <i class="fa fa-globe"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-xl font-bold mb-2">Application for International Students</h4>
+                  <div class="bg-light rounded-xl p-4 mb-4">
+                    <h5 class="font-bold text-primary mb-2">Deadline</h5>
+                    <p class="text-gray-600">December 1st</p>
+                  </div>
+                  <p class="text-gray-600">
+                    International students need to submit their applications earlier to ensure they have sufficient time to process their visas and other preparations for admission.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 奖学金申请 -->
+            <div class="timeline-item">
+              <div class="flex">
+                <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+                  <i class="fa fa-money"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-xl font-bold mb-2">Scholarship Application</h4>
+                  <div class="bg-light rounded-xl p-4 mb-4">
+                    <h5 class="font-bold text-accent mb-2">Deadline</h5>
+                    <p class="text-gray-600">December 15th</p>
+                  </div>
+                  <p class="text-gray-600">
+                    All applicants will be automatically considered for merit-based scholarships. Specific scholarships may require additional application materials.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 申请要求 -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+          <h3 class="text-2xl font-bold mb-8">Application Requirements</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- 左侧 -->
+            <div>
+              <h4 class="text-xl font-bold mb-4">Necessary Materials</h4>
+              
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">High school transcript</h5>
+                    <p class="text-gray-600">
+                      Provide a complete high school transcript, including all courses and grades.
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Recommendation letter</h5>
+                    <p class="text-gray-600">
+                      Usually, two recommendation letters from teachers are required. The recommenders should be familiar with your academic ability and personal qualities.
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Personal statement</h5>
+                    <p class="text-gray-600">
+                      Write a personal statement elaborating on your academic interests, career goals, and why you chose our school.
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Standardized test scores</h5>
+                    <p class="text-gray-600">
+                      Depending on the professional requirements, SAT, ACT or other standardized test scores may be needed.
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Proof of English language proficiency</h5>
+                    <p class="text-gray-600">
+                      International students are required to provide TOEFL or IELTS scores to prove their English language proficiency.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 右侧 -->
+            <div>
+              <h4 class="text-xl font-bold mb-4">Other Materials</h4>
+              
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-plus"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Personal works</h5>
+                    <p class="text-gray-600">
+                      Art-related majors may require the submission of a portfolio to showcase your creative ability and artistic talent.
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-plus"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Interview</h5>
+                    <p class="text-gray-600">
+                      Some majors may require an interview to assess your communication skills and professional adaptability.
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-plus"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Extracurricular activity experience</h5>
+                    <p class="text-gray-600">
+                      Provide detailed information about participation in extracurricular activities, leadership roles, volunteer work or work experience.
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-plus"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Proof of special talent</h5>
+                    <p class="text-gray-600">
+                      If you have special talents in sports, music, art or other fields, please provide relevant proof materials.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mt-8 bg-primary/5 rounded-xl p-6 border border-primary/20">
+                <a href="application.html" class="block">
+                <h4 class="font-bold text-primary mb-4 flex items-center">
+                  <i class="fa fa-arrow-right mr-2"></i> Start the application
+                </h4>
+                </a>
+                <p class="text-gray-700">All application materials must be submitted before the deadline. Incomplete applications may affect the admission decision. We encourage applicants to submit their applications as early as possible to ensure there is sufficient time to handle any potential issues.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <!-- 常见问题 -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Q&A</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            For frequently asked questions about undergraduate applications and studies, please contact our admissions team if you have any other questions.
+          </p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto">
+          <div class="space-y-4">
+            <!-- FAQ 1 -->
+            <div class="bg-light rounded-xl overflow-hidden">
+              <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                <h3 class="text-lg font-bold">How long is the duration of the undergraduate program?</h3>
+                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+              </button>
+              <div class="faq-content px-6 pb-6 hidden">
+                <p class="text-gray-600">
+                  Undergraduate programs at outstanding universities usually last for four years. Some majors, such as engineering and architecture, may require 4.5 or 5 years. The acceleration program may allow students to complete their studies within three years.
+                </p>
+              </div>
+            </div>
+            
+            <!-- FAQ 2 -->
+            <div class="bg-light rounded-xl overflow-hidden">
+              <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                <h3 class="text-lg font-bold">How do international students apply?</h3>
+                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+              </button>
+              <div class="faq-content px-6 pb-6 hidden">
+                <p class="text-gray-600">
+                  International students can submit their applications through our online application system. In addition to the regular application materials, it is also necessary to provide proof of English language proficiency (TOEFL or IELTS scores), as well as a degree assessment report issued by the certification body. The application deadline for international students is December 1st.
+                </p>
+              </div>
+            </div>
+            
+            <!-- FAQ 3 -->
+            <div class="bg-light rounded-xl overflow-hidden">
+              <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                <h3 class="text-lg font-bold">Does the undergraduate program offer scholarships?</h3>
+                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+              </button>
+              <div class="faq-content px-6 pb-6 hidden">
+                <p class="text-gray-600">
+                  Yes, the University of Excellence offers a variety of scholarships to undergraduate students, including academic scholarships, sports scholarships, art scholarships and scholarships for special talents, etc. Scholarship applications are usually made simultaneously with undergraduate applications. Some scholarships require additional application materials to be submitted. The deadline for scholarship applications is December 15th.
+                </p>
+              </div>
+            </div>
+            
+            <!-- FAQ 4 -->
+            <div class="bg-light rounded-xl overflow-hidden">
+              <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                <h3 class="text-lg font-bold">Can one change their major or transfer from another university?</h3>
+                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+              </button>
+              <div class="faq-content px-6 pb-6 hidden">
+                <p class="text-gray-600">
+                  Yes, current students can apply for a major change, usually they need to meet the admission requirements of their target major. Students transferring from other universities need to submit their transcripts and course descriptions, and the school will assess the transferable credits. Transfer applications usually close before the start of each semester. For specific dates, please refer to the school's official website.
+                </p>
+              </div>
+            </div>
+            
+            <!-- FAQ 5 -->
+            <div class="bg-light rounded-xl overflow-hidden">
+              <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                <h3 class="text-lg font-bold">Are there any internship and employment support for undergraduate students?</h3>
+                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+              </button>
+              <div class="faq-content px-6 pb-6 hidden">
+                <p class="text-gray-600">
+                  Yes, our career development center offers comprehensive internship and employment support for undergraduate students, including internship information release, resume guidance, interview skills training, and corporate job fairs, etc. Many majors require students to complete internships or graduation projects to help them accumulate work experience and enhance their employability. The employment rate of undergraduate graduates from our university is as high as 96%.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <i class="fa fa-graduation-cap text-white text-xl"></i>
+            </div>
+            <span class="text-xl font-bold">Virtual University</span>
+          </div>
+          <p class="text-gray-400 mb-6">
+            Virtual University is committed to providing a world-class educational and research environment and cultivating leaders with a global perspective.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-weixin"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Quick Links</h3>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="undergraduate1.html" class="text-gray-400 hover:text-white transition-colors">Undergraduate</a></li>
+            <li><a href="master1.html" class="text-gray-400 hover:text-white transition-colors">Master</a></li>
+            <li><a href="phd.html" class="text-gray-400 hover:text-white transition-colors">PhD</a></li>
+            <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Resources</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Academic Calendar</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tuition Fees and Scholarships</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Campus life</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">International students</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Career development</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Alumni network</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Subscribe us</h3>
+          <p class="text-gray-400 mb-4">
+            Subscribe to our email to get the latest admissions information and campus events.
+          </p>
+          <form class="mb-4">
+            <div class="flex">
+              <input type="email" placeholder="Enter your email" class="px-4 py-2 bg-white/10 text-white border border-white/20 rounded-l-lg focus:outline-none focus:border-primary w-full">
+              <button type="submit" class="px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-primary/90 transition-colors">
+                Subscribe
+              </button>
+            </div>
+          </form>
+          <p class="text-gray-400 text-sm">
+            We respect your privacy and will not share your information with any third party.
+          </p>
+        </div>
+      </div>
+      
+      <div class="border-t border-white/10 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            &copy; 2025 Virtual University. All rights reserved.
+          </p>
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Use</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Site Map</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2', 'shadow-md');
+        navbar.classList.remove('py-3');
+      } else {
+        navbar.classList.add('py-3');
+        navbar.classList.remove('py-2', 'shadow-md');
+      }
+    });
+    
+    // 移动端菜单切换
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // FAQ 切换
+    document.querySelectorAll('.faq-toggle').forEach(toggle => {
+      toggle.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        const icon = this.querySelector('i');
+        
+        // 切换内容显示/隐藏
+        content.classList.toggle('hidden');
+        
+        // 切换图标旋转
+        if (content.classList.contains('hidden')) {
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // 如果是移动端，点击导航链接后关闭菜单
+          const mobileMenu = document.getElementById('mobile-menu');
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>  

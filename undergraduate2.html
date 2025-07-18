@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual University - index</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#36BFFA',
+            accent: '#FF7D00',
+            dark: '#1D2939',
+            light: '#F9FAFB'
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .bg-gradient-primary {
+        background: linear-gradient(135deg, #165DFF 0%, #36BFFA 100%);
+      }
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+    }
+  </style>
+</head>
+
+<body class="font-inter text-dark bg-light">
+  <!-- 导航栏 -->
+    <header id="navbar" class="fixed w-full z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between bg-white/90 backdrop-blur-md shadow-sm">
+      <a href="#" class="flex items-center space-x-2">
+        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+          <i class="fa fa-graduation-cap text-white text-xl"></i>
+        </div>
+        <span class="text-xl font-bold text-primary">Virtual University</span>
+      </a>
+      
+      <!-- 桌面导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="font-medium text-dark hover:text-primary transition-colors">Home</a>
+        <a href="undergraduate1.html" class="font-medium text-primary border-b-2 border-primary">Undergraduate</a>
+        <a href="graduate.html" class="font-medium text-dark hover:text-primary transition-colors">Master</a>
+        <a href="phd.html" class="font-medium text-dark hover:text-primary transition-colors">PhD</a>
+        <a href="application.html" class="font-medium text-dark hover:text-primary transition-colors">Application</a>
+        <!-- 修改：将button改为a标签实现跳转 -->
+        <a href="chat.html" id="open-ai-btn" class="ml-4 px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center">
+          <i class="fa fa-comments-o mr-2"></i>AI Assistant
+        </a>
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="menu-toggle" class="md:hidden text-dark focus:outline-none">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="index.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Home</a>
+        <!-- 修改：将Undergraduate链接从#改为undergraduate1.html -->
+        <a href="undergraduate1.html" class="font-medium text-primary py-2">Undergraduate</a>
+        <a href="graduate.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Master</a>
+        <a href="phd.html" class="font-medium text-dark hover:text-primary transition-colors py-2">PhD</a>
+        <a href="application.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Application</a>
+        <!-- 修改：将button改为a标签实现跳转 -->
+        <a href="chat.html" id="open-ai-btn-mobile" class="px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center">
+          <i class="fa fa-comments-o mr-2"></i>AI Assistant
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main>
+    <!-- 英雄区域 -->
+    <section class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-primary text-white">
+      <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0">
+          <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-shadow mb-6">
+            Undergraduate<br>Unlock an extraordinary future
+          </h1>
+          <p class="text-lg md:text-xl mb-8 max-w-xl">
+            The excellent undergraduate education at the university focuses on cultivating students' critical thinking, innovation ability and practical experience, laying a solid foundation for future career development and postgraduate studies.
+          </p>
+          <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="#programs" class="px-8 py-3 bg-white text-primary font-medium rounded-lg hover:bg-opacity-90 transition-colors text-center">
+              Explore
+            </a>
+            <a href="application.html" class="px-8 py-3 bg-transparent border-2 border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors text-center">
+              Apply Now
+            </a>
+          </div>
+        </div>
+        <div class="md:w-1/2 relative">
+          <div class="relative z-10 rounded-xl overflow-hidden shadow-2xl">
+            <img src="https://fastly.picsum.photos/id/1/5000/3333.jpg?hmac=Asv2DU3rA_5D1xSe22xZK47WEAN0wjWeFOhzd13ujW4" alt="Undergraduate students discussing in class" class="w-full h-auto">
+          </div>
+          <div class="absolute -bottom-6 -right-6 w-64 h-64 bg-secondary rounded-full opacity-20 blur-3xl -z-10"></div>
+          <div class="absolute -top-6 -left-6 w-64 h-64 bg-accent rounded-full opacity-10 blur-3xl -z-10"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Undergraduate概览 -->
+    <section id="programs" class="py-16 bg-light">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Explore Undergraduate Programs</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            We offer more than 120 undergraduate majors in engineering, science, humanities, social sciences, business and more, helping students discover their passions and develop professional skills.
+          </p>
+        </div>
+        
+        <!-- 学科分类标签 -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+          <button class="category-btn px-6 py-2 bg-primary text-white rounded-full" data-category="all">All majors</button>
+          <button class="category-btn px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full" data-category="engineering">College of Engineering</button>
+          <button class="category-btn px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full" data-category="science">College of Science</button>
+          <button class="category-btn px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full" data-category="business">College of Business</button>
+          <button class="category-btn px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full" data-category="arts">Liberal Arts College</button>
+          <button class="category-btn px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full" data-category="medical">College of Medical</button>
+          <button class="category-btn px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full" data-category="art">College of Art</button>
+        </div>
+        
+        <!-- 项目列表 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- 项目卡片1 - 工程学院 -->
+          <div class="program-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="engineering">
+            <div class="h-48 overflow-hidden">
+              <img src="https://fastly.picsum.photos/id/9/5000/3269.jpg?hmac=cZKbaLeduq7rNB8X-bigYO8bvPIWtT-mh8GRXtU3vPc" alt="计算机科学专业" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Computer Science</h3>
+                <span class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">Hot</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Cultivate students' mastery of computer theory and practical skills to adapt to the rapidly changing demands of the technology industry.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 4 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Bachelor of Science
+                </div>
+              </div>
+              <a href="undergraduateProject.html" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                More Details
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片2 - 商学院 -->
+          <div class="program-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="business">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1005/600/400" alt="金融专业" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Finance</h3>
+                <span class="px-3 py-1 bg-accent/10 text-accent text-sm rounded-full">High Demand</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Provide comprehensive financial knowledge and analytical tools to cultivate students' leadership and innovation capabilities in the financial field.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 4 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Bachelor of Business
+                </div>
+              </div>
+              <a href="#finance" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                More Details
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片3 - 医学院/工程学院 -->
+          <div class="program-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="medical engineering">
+            <div class="h-48 overflow-hidden">
+              <img src="https://th.bing.com/th/id/R.fd0711fd20ae47f35f62d8434b01fdad?rik=KGz4%2fXlQcak0WQ&riu=http%3a%2f%2fshxy.ccsu.cn%2f__local%2fF%2fD0%2f71%2f1FD20AE47F35F62D8434B01FDAD_2CFE5DD8_E0BD.png&ehk=E%2bKGi7EOYih16l0pEZiatvUxS3tnLpBcncDENqeMbD8%3d&risl=&pid=ImgRaw&r=0" alt="生物医学工程专业" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Biomedical Engineering</h3>
+                <span class="px-3 py-1 bg-secondary/10 text-secondary text-sm rounded-full">Innovation</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Combining engineering principles with biomedical science, this program aims to cultivate students' ability to design and develop medical devices and systems.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 4 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Bachelor of Engineering
+                </div>
+              </div>
+              <a href="#biomedical-engineering" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                More Details
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片4 - 工程学院 -->
+          <div class="program-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="engineering">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1025/600/400" alt="电子工程专业" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Electronic Engineering</h3>
+                <span class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">Hot</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Cultivate students' mastery of core knowledge such as electronic circuit design, signal processing and communication systems, and adapt to the development needs of the electronic information industry.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 4 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Bachelor of Engineering
+                </div>
+              </div>
+              <a href="#electrical-engineering" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                More Details
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片5 - 文学院/理学院 -->
+          <div class="program-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="arts science">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1035/600/400" alt="心理学专业" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Psychology</h3>
+                <span class="px-3 py-1 bg-accent/10 text-accent text-sm rounded-full">High demand</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Explore human behavior and psychological processes, and cultivate students' professional capabilities in fields such as psychological counseling, human resource management, and market research.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 4 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Bachelor of Liberal Arts
+                </div>
+              </div>
+              <a href="#psychology" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                More Details
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片6 - 理学院 -->
+          <div class="program-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="science">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1060/600/400" alt="环境科学专业" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Environmental Science</h3>
+                <span class="px-3 py-1 bg-secondary/10 text-secondary text-sm rounded-full">Innovation</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Study the interaction between human activities and the natural environment, and cultivate students' ability to solve environmental problems and promote sustainable development.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 4 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Bachelor of Science
+                </div>
+              </div>
+              <a href="#environmental-science" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                More Details
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <i class="fa fa-graduation-cap text-white text-xl"></i>
+            </div>
+            <span class="text-xl font-bold">Virtual University</span>
+          </div>
+          <p class="text-gray-400 mb-6">
+            Virtual University is committed to providing a world-class educational and research environment and cultivating leaders with a global perspective.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-weixin"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Quick Links</h3>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="undergraduate1.html" class="text-gray-400 hover:text-white transition-colors">Undergraduate</a></li>
+            <li><a href="master1.html" class="text-gray-400 hover:text-white transition-colors">Master</a></li>
+            <li><a href="phd.html" class="text-gray-400 hover:text-white transition-colors">PhD</a></li>
+            <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Resources</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Academic Calendar</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tuition Fees and Scholarships</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Campus life</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">International students</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Career development</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Alumni network</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Subscribe us</h3>
+          <p class="text-gray-400 mb-4">
+            Subscribe to our email to get the latest admissions information and campus events.
+          </p>
+          <form class="mb-4">
+            <div class="flex">
+              <input type="email" placeholder="Enter your email" class="px-4 py-2 bg-white/10 text-white border border-white/20 rounded-l-lg focus:outline-none focus:border-primary w-full">
+              <button type="submit" class="px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-primary/90 transition-colors">
+                Subscribe
+              </button>
+            </div>
+          </form>
+          <p class="text-gray-400 text-sm">
+            We respect your privacy and will not share your information with any third party.
+          </p>
+        </div>
+      </div>
+      
+      <div class="border-t border-white/10 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            &copy; 2025 Virtual University. All rights reserved.
+          </p>
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Use</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Site Map</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2', 'shadow-md');
+        navbar.classList.remove('py-3');
+      } else {
+        navbar.classList.add('py-3');
+        navbar.classList.remove('py-2', 'shadow-md');
+      }
+    });
+    
+    // 移动端菜单切换
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // 项目分类筛选功能
+    document.addEventListener('DOMContentLoaded', function() {
+      // 获取所有分类按钮和项目卡片
+      const categoryBtns = document.querySelectorAll('.category-btn');
+      const programCards = document.querySelectorAll('.program-card');
+      
+      // 为每个分类按钮添加点击事件
+      categoryBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // 移除所有按钮的活跃状态
+          categoryBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white');
+            b.classList.add('bg-white', 'text-dark', 'hover:bg-primary/10');
+          });
+          
+          // 设置当前按钮为活跃状态
+          this.classList.remove('bg-white', 'text-dark', 'hover:bg-primary/10');
+          this.classList.add('bg-primary', 'text-white');
+          
+          // 获取当前分类
+          const category = this.getAttribute('data-category');
+          
+          // 显示或隐藏相应的项目卡片
+          programCards.forEach(card => {
+            const cardCategories = card.getAttribute('data-category');
+            
+            // 如果选择"全部专业"或卡片属于所选分类，则显示卡片
+            if (category === 'all' || cardCategories.includes(category)) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // 如果是移动端，点击导航链接后关闭菜单
+          const mobileMenu = document.getElementById('mobile-menu');
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

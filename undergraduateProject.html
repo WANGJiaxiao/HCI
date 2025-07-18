@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Science - Virtual University</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#36BFFA',
+            accent: '#FF7D00',
+            dark: '#1D2939',
+            light: '#F9FAFB',
+            code: '#2D3748'
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .bg-gradient-primary {
+        background: linear-gradient(135deg, #165DFF 0%, #36BFFA 100%);
+      }
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      .skill-bar {
+        height: 8px;
+        border-radius: 4px;
+        background-color: #E5E7EB;
+        overflow: hidden;
+      }
+      .skill-progress {
+        height: 100%;
+        background-color: #165DFF;
+      }
+    }
+  </style>
+</head>
+
+<body class="font-inter text-dark bg-light">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between bg-white/90 backdrop-blur-md shadow-sm">
+      <a href="#" class="flex items-center space-x-2">
+        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+          <i class="fa fa-graduation-cap text-white text-xl"></i>
+        </div>
+        <span class="text-xl font-bold text-primary">Virtual University</span>
+      </a>
+      
+      <!-- 桌面导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="font-medium text-dark hover:text-primary transition-colors">Home</a>
+        <!-- 修改：添加text-primary和border-b-2 border-primary类 -->
+        <a href="undergraduate1.html" class="font-medium text-primary border-b-2 border-primary">Undergraduate</a>
+        <a href="master1.html" class="font-medium text-dark hover:text-primary transition-colors">Master</a>
+        <a href="phd.html" class="font-medium text-dark hover:text-primary transition-colors">PhD</a>
+        <a href="application.html" class="font-medium text-dark hover:text-primary transition-colors">Application</a>
+        <a href="chat.html" id="open-ai-btn" class="ml-4 px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center">
+          <i class="fa fa-comments-o mr-2"></i>AI Assistant
+        </a>
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="menu-toggle" class="md:hidden text-dark focus:outline-none">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="index.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Home</a>
+        <!-- 修改：添加text-primary类 -->
+        <a href="undergraduate1.html" class="font-medium text-primary py-2">Undergraduate</a>
+        <a href="master1.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Master</a>
+        <a href="phd.html" class="font-medium text-dark hover:text-primary transition-colors py-2">PhD</a>
+        <a href="application.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Application</a>
+        <a href="chat.html" id="open-ai-btn-mobile" class="px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center">
+          <i class="fa fa-comments-o mr-2"></i>AI Assistant
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main>
+    <!-- 专业头部区域 -->
+    <section class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-primary text-white">
+      <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0">
+          <div class="flex items-center mb-4">
+            <a href="undergraduate.html" class="text-white/80 hover:text-white transition-colors flex items-center">
+              <i class="fa fa-arrow-left mr-2"></i> Back to Undergraduate Programs
+            </a>
+          </div>
+          <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-shadow mb-4">
+            Computer Science
+          </h1>
+          <div class="flex items-center space-x-4 mb-6">
+            <span class="px-4 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm">Bachelor of Science</span>
+            <span class="px-4 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm">4-Year Program</span>
+            <span class="px-4 py-1 bg-accent rounded-full text-sm">Popular Major</span>
+          </div>
+          <p class="text-lg md:text-xl mb-8 max-w-xl">
+            Our Computer Science program equips students with cutting-edge theoretical knowledge and practical skills in computing. Through project-based learning and industry collaboration, the program prepares high-quality talent for emerging fields such as artificial intelligence, software development, and cybersecurity.
+          </p>
+          <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="application.html" class="px-8 py-3 bg-white text-primary font-medium rounded-lg hover:bg-opacity-90 transition-colors text-center">
+              Apply Now
+            </a>
+            <a href="#curriculum" class="px-8 py-3 bg-transparent border-2 border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors text-center">
+              View Curriculum
+            </a>
+          </div>
+        </div>
+        <div class="md:w-1/2 relative">
+          <div class="relative z-10 rounded-xl overflow-hidden shadow-2xl">
+            <img src="https://picsum.photos/id/0/600/400" alt="计算机科学专业学生在实验室" class="w-full h-auto">
+          </div>
+          <div class="absolute -bottom-6 -right-6 w-64 h-64 bg-secondary rounded-full opacity-20 blur-3xl -z-10"></div>
+          <div class="absolute -top-6 -left-6 w-64 h-64 bg-accent rounded-full opacity-10 blur-3xl -z-10"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 专业亮点 -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Program Highlights</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Our Computer Science program integrates theory with practice, offering comprehensive skill development and diverse opportunities for growth.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="bg-light p-6 rounded-xl card-hover">
+            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+              <i class="fa fa-laptop text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Cutting-Edge Technology Courses</h3>
+            <p class="text-gray-600">
+              The curriculum covers the latest technologies including artificial intelligence, machine learning, blockchain, and cloud computing. Course content is regularly updated to reflect industry trends.
+            </p>
+          </div>
+          
+          <div class="bg-light p-6 rounded-xl card-hover">
+            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+              <i class="fa fa-cogs text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Practice-Oriented Learning</h3>
+            <p class="text-gray-600">
+              Each semester includes at least one major hands-on project, allowing students to apply knowledge to real-world problems and develop strong teamwork and problem-solving skills.
+            </p>
+          </div>
+          
+          <div class="bg-light p-6 rounded-xl card-hover">
+            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+              <i class="fa fa-building text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Industry Collaboration</h3>
+            <p class="text-gray-600">
+              We collaborate with leading tech companies such as Microsoft, Google, and Tencent to provide internship opportunities and real-world project experiences.
+            </p>
+          </div>
+          
+          <div class="bg-light p-6 rounded-xl card-hover">
+            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+              <i class="fa fa-flask text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Research Opportunities</h3>
+            <p class="text-gray-600">
+              Undergraduate students have the opportunity to participate in faculty-led research projects in areas such as artificial intelligence and computer vision.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 专业概述 -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row gap-12">
+          <div class="lg:w-1/2">
+            <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-6">Program Overview</h2>
+            <p class="text-gray-700 mb-6 text-lg">
+              Established in 1985, the Computer Science program at our university has grown over the past 30+ years into one of China's top-tier programs for training future leaders in computing.
+            </p>
+            <p class="text-gray-700 mb-6">
+              Our faculty consists of internationally recognized scholars and industry experts, with over 80% holding PhDs from prestigious universities abroad. We emphasize computational thinking, algorithmic design, and system development, while encouraging interdisciplinary learning.
+            </p>
+            <p class="text-gray-700 mb-6">
+              In recent years, our graduates have maintained an employment rate of over 98%, with average starting salaries ranking among the highest nationwide. Graduates are employed by leading global technology companies, research institutions, and universities.
+            </p>
+            
+            <div class="grid grid-cols-2 gap-6 mt-8">
+              <div class="bg-white p-5 rounded-lg shadow-sm">
+                <div class="text-3xl font-bold text-primary mb-2">98%</div>
+                <div class="text-gray-600">Graduate Employment Rate</div>
+              </div>
+              <div class="bg-white p-5 rounded-lg shadow-sm">
+                <div class="text-3xl font-bold text-primary mb-2">¥15K</div>
+                <div class="text-gray-600">Average Starting Salary (Monthly)</div>
+              </div>
+              <div class="bg-white p-5 rounded-lg shadow-sm">
+                <div class="text-3xl font-bold text-primary mb-2">30+</div>
+                <div class="text-gray-600">Industry Partners</div>
+              </div>
+              <div class="bg-white p-5 rounded-lg shadow-sm">
+                <div class="text-3xl font-bold text-primary mb-2">500+</div>
+                <div class="text-gray-600">Current Students</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="lg:w-1/2">
+            <div class="bg-white p-6 rounded-xl shadow-md h-full">
+              <h3 class="text-xl font-bold mb-6">Student Competency Development</h3>
+              
+              <div class="space-y-6">
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Programming and Software Development</span>
+                    <span>95%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 95%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Algorithm Design and Analysis</span>
+                    <span>90%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 90%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Artificial Intelligence and Machine Learning</span>
+                    <span>85%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 85%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Networking and Information Security</span>
+                    <span>80%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 80%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Database System Design</span>
+                    <span>88%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 88%"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Project Management and Team Collaboration</span>
+                    <span>82%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 82%"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mt-8">
+                <h3 class="text-xl font-bold mb-4">Career Paths</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  <div class="px-3 py-2 bg-primary/10 text-primary rounded-lg text-sm text-center">Software Engineer</div>
+                  <div class="px-3 py-2 bg-primary/10 text-primary rounded-lg text-sm text-center">Data Scientist</div>
+                  <div class="px-3 py-2 bg-primary/10 text-primary rounded-lg text-sm text-center">AI Engineer</div>
+                  <div class="px-3 py-2 bg-primary/10 text-primary rounded-lg text-sm text-center">Frontend Developer</div>
+                  <div class="px-3 py-2 bg-primary/10 text-primary rounded-lg text-sm text-center">Frontend Developer</div>
+                  <div class="px-3 py-2 bg-primary/10 text-primary rounded-lg text-sm text-center">Backend Architect</div>
+                  <div class="px-3 py-2 bg-primary/10 text-primary rounded-lg text-sm text-center">Mobile App Developer</div>
+                  <div class="px-3 py-2 bg-primary/10 text-primary rounded-lg text-sm text-center">Game Developer</div>
+                  <div class="px-3 py-2 bg-primary/10 text-primary rounded-lg text-sm text-center">IT Consulting Consultant</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 课程设置 -->
+    <section id="curriculum" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Curriculum Overview</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Our curriculum emphasizes a balanced integration of theory and practice, offering students a comprehensive and in-depth understanding of computer science — from foundational courses to advanced electives.
+          </p>
+        </div>
+        
+        <!-- 课程年份标签 -->
+        <div class="flex flex-wrap justify-center gap-4 mb-10">
+          <button class="year-btn px-6 py-2 bg-primary text-white rounded-full" data-year="all">Full Academic Program</button>
+          <button class="year-btn px-6 py-2 bg-gray-100 text-dark hover:bg-gray-200 transition-colors rounded-full" data-year="1">Year 1</button>
+          <button class="year-btn px-6 py-2 bg-gray-100 text-dark hover:bg-gray-200 transition-colors rounded-full" data-year="2">Year 2</button>
+          <button class="year-btn px-6 py-2 bg-gray-100 text-dark hover:bg-gray-200 transition-colors rounded-full" data-year="3">Year 3</button>
+          <button class="year-btn px-6 py-2 bg-gray-100 text-dark hover:bg-gray-200 transition-colors rounded-full" data-year="4">Year 4</button>
+        </div>
+        
+        <!-- 课程列表 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- 第一年课程 -->
+          <div class="course-card bg-gray-50 rounded-xl p-6 shadow-sm" data-year="1">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-lg font-bold">Introduction to Computer Science</h3>
+              <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">Core Course</span>
+            </div>
+            <p class="text-gray-600 mb-3">
+              Introduces fundamental concepts, historical development, and application areas of computer science, fostering computational thinking.
+            </p>
+            <div class="flex items-center text-sm text-gray-500">
+              <div class="flex items-center mr-4">
+                <i class="fa fa-clock-o mr-1"></i> Credits: 3
+              </div>
+              <div class="flex items-center">
+                <i class="fa fa-calendar mr-1"></i> Semester 1
+              </div>
+            </div>
+          </div>
+          
+          <div class="course-card bg-gray-50 rounded-xl p-6 shadow-sm" data-year="1">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-lg font-bold">Fundamentals of Programming</h3>
+              <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">Core Course</span>
+            </div>
+            <p class="text-gray-600 mb-3">
+              Introduces basic programming concepts, data types, control structures, and functions using Python as the introductory language.
+            </p>
+            <div class="flex items-center text-sm text-gray-500">
+              <div class="flex items-center mr-4">
+                <i class="fa fa-clock-o mr-1"></i> Credits: 4
+              </div>
+              <div class="flex items-center">
+                <i class="fa fa-calendar mr-1"></i> Semester 1
+              </div>
+            </div>
+          </div>
+          
+          <!-- 第二年课程 -->
+          <div class="course-card bg-gray-50 rounded-xl p-6 shadow-sm" data-year="2">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-lg font-bold">Data Structures and Algorithms</h3>
+              <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">Core Course</span>
+            </div>
+            <p class="text-gray-600 mb-3">
+              Covers common data structures (linked lists, stacks, queues, trees, graphs) and their algorithmic implementation and analysis.
+            </p>
+            <div class="flex items-center text-sm text-gray-500">
+              <div class="flex items-center mr-4">
+                <i class="fa fa-clock-o mr-1"></i> Credits: 4
+              </div>
+              <div class="flex items-center">
+                <i class="fa fa-calendar mr-1"></i> Semester 3
+              </div>
+            </div>
+          </div>
+          
+          <div class="course-card bg-gray-50 rounded-xl p-6 shadow-sm" data-year="2">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-lg font-bold">Computer Organization and Architecture</h3>
+              <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">Core Course</span>
+            </div>
+            <p class="text-gray-600 mb-3">
+              Studies the components and working principles of computer hardware systems, including CPU, memory, and I/O systems.
+            </p>
+            <div class="flex items-center text-sm text-gray-500">
+              <div class="flex items-center mr-4">
+                <i class="fa fa-clock-o mr-1"></i> Credits: 4
+              </div>
+              <div class="flex items-center">
+                <i class="fa fa-calendar mr-1"></i> Semester 4
+              </div>
+            </div>
+          </div>
+          
+          <!-- 第三年课程 -->
+          <div class="course-card bg-gray-50 rounded-xl p-6 shadow-sm" data-year="3">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-lg font-bold">Foundations of Artificial Intelligence</h3>
+              <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full">Elective Course</span>
+            </div>
+            <p class="text-gray-600 mb-3">
+              Introduces basic concepts, methods, and applications of AI, including machine learning, neural networks, and natural language processing.
+            </p>
+            <div class="flex items-center text-sm text-gray-500">
+              <div class="flex items-center mr-4">
+                <i class="fa fa-clock-o mr-1"></i> Credits: 3
+              </div>
+              <div class="flex items-center">
+                <i class="fa fa-calendar mr-1"></i> Semester 5
+              </div>
+            </div>
+          </div>
+          
+          <div class="course-card bg-gray-50 rounded-xl p-6 shadow-sm" data-year="3">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-lg font-bold">Operating Systems</h3>
+              <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">Core Course</span>
+            </div>
+            <p class="text-gray-600 mb-3">
+              Explores core principles and implementation techniques of operating systems, including process management, memory management, file systems, and device management.
+            </p>
+            <div class="flex items-center text-sm text-gray-500">
+              <div class="flex items-center mr-4">
+                <i class="fa fa-clock-o mr-1"></i> Credits: 4
+              </div>
+              <div class="flex items-center">
+                <i class="fa fa-calendar mr-1"></i> Semester 6
+              </div>
+            </div>
+          </div>
+          
+          <!-- 第四年课程 -->
+          <div class="course-card bg-gray-50 rounded-xl p-6 shadow-sm" data-year="4">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-lg font-bold">Capstone Project in Computer Science</h3>
+              <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">Core Course</span>
+            </div>
+            <p class="text-gray-600 mb-3">
+              Under faculty supervision, students complete an innovative project that develops independent research and problem-solving skills.
+            </p>
+            <div class="flex items-center text-sm text-gray-500">
+              <div class="flex items-center mr-4">
+                <i class="fa fa-clock-o mr-1"></i> Credits: 6
+              </div>
+              <div class="flex items-center">
+                <i class="fa fa-calendar mr-1"></i> Semester 7-8
+              </div>
+            </div>
+          </div>
+          
+          <div class="course-card bg-gray-50 rounded-xl p-6 shadow-sm" data-year="4">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-lg font-bold">Network Security and Cryptography</h3>
+              <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full">Elective Course</span>
+            </div>
+            <p class="text-gray-600 mb-3">
+              Covers fundamental principles and technologies of cybersecurity, including encryption algorithms, authentication, intrusion detection, and defense strategies.
+            </p>
+            <div class="flex items-center text-sm text-gray-500">
+              <div class="flex items-center mr-4">
+                <i class="fa fa-clock-o mr-1"></i> Credits: 3
+              </div>
+              <div class="flex items-center">
+                <i class="fa fa-calendar mr-1"></i> Semester 7
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+          <a href="#" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium">
+            View Full Course Catalog <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 师资力量 -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Faculty</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Our faculty team consists of experts with strong academic backgrounds and extensive industry experience in the field of computer science. They are dedicated to delivering high-quality instruction and providing guidance for student research.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="h-64 overflow-hidden">
+              <img src="https://picsum.photos/id/1005/400/400" alt="张明教授" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-1">Professor Ming Zhang</h3>
+              <p class="text-primary mb-3">Artificial Intelligence and Machine Learning</p>
+              <p class="text-gray-600 text-sm mb-4">
+                PhD from Stanford University，Former Research Scientist at Google AI，Focus on Deep learning and computer vision
+              </p>
+              <div class="flex items-center text-sm text-gray-500">
+                <a href="#" class="hover:text-primary transition-colors mr-4">
+                  <i class="fa fa-envelope mr-1"></i> zhangming@excellence.edu
+                </a>
+                <a href="#" class="hover:text-primary transition-colors">
+                  <i class="fa fa-globe mr-1"></i> Personal Homepage
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="h-64 overflow-hidden">
+              <img src="https://picsum.photos/id/1000/400/400" alt="李华副教授" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-1">Associate Professor Hua Li</h3>
+              <p class="text-primary mb-3">Cybersecurity</p>
+              <p class="text-gray-600 text-sm mb-4">
+                PhD from MIT，15 years of research experience in cybersecurity，Winner of the National Science and Technology Progress Award
+              </p>
+              <div class="flex items-center text-sm text-gray-500">
+                <a href="#" class="hover:text-primary transition-colors mr-4">
+                  <i class="fa fa-envelope mr-1"></i> lihua@excellence.edu
+                </a>
+                <a href="#" class="hover:text-primary transition-colors">
+                  <i class="fa fa-globe mr-1"></i> Personal Homepage
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="h-64 overflow-hidden">
+              <img src="https://picsum.photos/id/1001/400/400" alt="王静 副教授" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-1">Associate Professor Jing Wang</h3>
+              <p class="text-primary mb-3">Databases and Big Data</p>
+              <p class="text-gray-600 text-sm mb-4">
+                PhD from UC Berkeley，Focus on Distributed databases and big data processing technologies
+              </p>
+              <div class="flex items-center text-sm text-gray-500">
+                <a href="#" class="hover:text-primary transition-colors mr-4">
+                  <i class="fa fa-envelope mr-1"></i> wangjing@excellence.edu
+                </a>
+                <a href="#" class="hover:text-primary transition-colors">
+                  <i class="fa fa-globe mr-1"></i> Personal Homepage
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="h-64 overflow-hidden">
+              <img src="https://picsum.photos/id/1012/400/400" alt="刘伟 讲师" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-1">Lecturer Wei Liu</h3>
+              <p class="text-primary mb-3">Software Engineering</p>
+              <p class="text-gray-600 text-sm mb-4">
+                PhD from Carnegie Mellon University，Former Senior Software Engineer at Microsoft，Expertise in Practical software development and system architecture
+              </p>
+              <div class="flex items-center text-sm text-gray-500">
+                <a href="#" class="hover:text-primary transition-colors mr-4">
+                  <i class="fa fa-envelope mr-1"></i> liuwei@excellence.edu
+                </a>
+                <a href="#" class="hover:text-primary transition-colors">
+                  <i class="fa fa-globe mr-1"></i> Personal Homepage
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+          <a href="#" class="inline-block px-6 py-3 border-2 border-primary text-primary font-medium rounded-lg hover:bg-primary hover:text-white transition-colors">
+            View All Faculty Members
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 学生项目展示 -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Student Project Showcase</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Through course projects and research activities, our students engage in innovative practices across various domains. Below are some outstanding project examples
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-light rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/180/600/400" alt="智能校园导航系统" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-3">Smart Campus Navigation System</h3>
+              <p class="text-gray-600 mb-4">
+                An AR-based campus navigation app that helps new students quickly familiarize themselves with the campus environment. It supports voice interaction and real-time route planning.
+              </p>
+              <div class="flex items-center justify-between">
+                <div class="text-sm text-gray-500">
+                  <span>Class of: 2023 – Computer Science</span>
+                </div>
+                <a href="#" class="text-primary hover:text-primary/80 transition-colors">
+                  Details <i class="fa fa-arrow-right ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-light rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/48/600/400" alt="基于深度学习的垃圾分类系统" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-3">AI-Powered Waste Sorting System</h3>
+              <p class="text-gray-600 mb-4">
+                A smart waste classification system using computer vision and deep learning techniques. The system achieves an accuracy rate of 92% and has been piloted in multiple communities.
+              </p>
+              <div class="flex items-center justify-between">
+                <div class="text-sm text-gray-500">
+                  <span>Class of: 2022 – Computer Science</span>
+                </div>
+                <a href="#" class="text-primary hover:text-primary/80 transition-colors">
+                  Details <i class="fa fa-arrow-right ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-light rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/96/600/400" alt="区块链学术论文查重系统" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-3">Blockchain-Based Academic Plagiarism Detection System</h3>
+              <p class="text-gray-600 mb-4">
+                A platform for academic paper verification and plagiarism detection based on blockchain technology, ensuring the originality and immutability of research outcomes.
+              </p>
+              <div class="flex items-center justify-between">
+                <div class="text-sm text-gray-500">
+                  <span>Class of: 2021 – Computer Science</span>
+                </div>
+                <a href="#" class="text-primary hover:text-primary/80 transition-colors">
+                  Details <i class="fa fa-arrow-right ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 申请信息 -->
+    <section id="application" class="py-16 bg-gradient-primary text-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold leading-tight text-shadow mb-4">
+            Apply to the Computer Science Program
+          </h2>
+          <p class="text-lg max-w-3xl mx-auto">
+            We welcome passionate, innovative, and motivated students to apply for our Computer Science program. Below are the application requirements and key dates:
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white/10 backdrop-blur-sm p-5 rounded-lg">
+            <h3 class="text-xl font-bold mb-3 flex items-center">
+              <i class="fa fa-check-circle mr-3 text-accent"></i>Application Requirements
+            </h3>
+            <ul class="space-y-2 text-white/90">
+              <li class="flex items-start">
+                <i class="fa fa-angle-right mt-1 mr-2"></i>
+                <span>High school diploma or equivalent academic qualifications</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right mt-1 mr-2"></i>
+                <span>Strong academic performance in STEM subjects, particularly mathematics and physics</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right mt-1 mr-2"></i>
+                <span>Proof of English proficiency (e.g., TOEFL, IELTS, or equivalent)</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right mt-1 mr-2"></i>
+                <span>Personal statement outlining your interest in computer science and future goals</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right mt-1 mr-2"></i>
+                <span>(Optional) Portfolio of programming projects or proof of participation in coding competitions or awards</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="bg-white/10 backdrop-blur-sm p-5 rounded-lg">
+            <h3 class="text-xl font-bold mb-3 flex items-center">
+              <i class="fa fa-calendar-check-o mr-3 text-accent"></i>Important Dates
+            </h3>
+            <ul class="space-y-2 text-white/90">
+              <li class="flex items-start">
+                <i class="fa fa-angle-right mt-1 mr-2"></i>
+                <span>Fall Intake Application Deadline: January 15 each year</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right mt-1 mr-2"></i>
+                <span>Spring Intake Application Deadline: September 15 each year</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right mt-1 mr-2"></i>
+                <span>Admission Decision Notification: 4–6 weeks after deadline</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right mt-1 mr-2"></i>
+                <span>Fall Semester Start: Early September</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right mt-1 mr-2"></i>
+                <span>Spring Semester Start: Early February</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="mt-10 text-center">
+          <a href="application.html" class="inline-block px-8 py-3 bg-white text-primary font-medium rounded-lg hover:bg-opacity-90 transition-colors text-lg">
+            Apply Now
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <i class="fa fa-graduation-cap text-white text-xl"></i>
+            </div>
+            <span class="text-xl font-bold">Virtual University</span>
+          </div>
+          <p class="text-gray-400 mb-6">
+            Virtual University is committed to providing a world-class educational and research environment and cultivating leaders with a global perspective.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-weixin"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Quick Links</h3>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="undergraduate1.html" class="text-gray-400 hover:text-white transition-colors">Undergraduate</a></li>
+            <li><a href="master1.html" class="text-gray-400 hover:text-white transition-colors">Master</a></li>
+            <li><a href="phd.html" class="text-gray-400 hover:text-white transition-colors">PhD</a></li>
+            <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Resources</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Academic Calendar</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tuition Fees and Scholarships</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Campus life</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">International students</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Career development</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Alumni network</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Contact Us</h3>
+          <ul class="space-y-3 text-gray-400">
+            <li class="flex items-start">
+              <i class="fa fa-map-marker mt-1 mr-3 text-primary"></i>
+              <span>School of Computer Science and Technology, No. 88 Zhuoyue Road, Haidian District, Beijing</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-phone mr-3 text-primary"></i>
+              <span>+86 10 8888 7777</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fa fa-envelope mr-3 text-primary"></i>
+              <span>cs-admissions@excellence.edu</span>
+            </li>
+          </ul>
+          
+          <div class="mt-6">
+            <h4 class="text-white font-medium mb-3">Office Hours</h4>
+            <p class="text-gray-400">Monday – Friday: 9:00 AM – 5:00 PM</p>
+            <p class="text-gray-400">Saturday – Sunday: Closed</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-white/10 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            &copy; 2025 Virtual University. All rights reserved.
+          </p>
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Use</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Site Map</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2', 'shadow-md');
+        navbar.classList.remove('py-3');
+      } else {
+        navbar.classList.add('py-3');
+        navbar.classList.remove('py-2', 'shadow-md');
+      }
+    });
+    
+    // 移动端菜单切换
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // 课程年份筛选功能
+    document.addEventListener('DOMContentLoaded', function() {
+      const yearBtns = document.querySelectorAll('.year-btn');
+      const courseCards = document.querySelectorAll('.course-card');
+      
+      yearBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // 移除所有按钮的活跃状态
+          yearBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white');
+            b.classList.add('bg-gray-100', 'text-dark', 'hover:bg-gray-200');
+          });
+          
+          // 设置当前按钮为活跃状态
+          this.classList.remove('bg-gray-100', 'text-dark', 'hover:bg-gray-200');
+          this.classList.add('bg-primary', 'text-white');
+          
+          // 获取当前年份
+          const year = this.getAttribute('data-year');
+          
+          // 显示或隐藏相应的课程卡片
+          courseCards.forEach(card => {
+            const cardYear = card.getAttribute('data-year');
+            
+            // 如果选择"全部学年"或卡片属于所选年份，则显示卡片
+            if (year === 'all' || cardYear === year) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // 如果是移动端，点击导航链接后关闭菜单
+          const mobileMenu = document.getElementById('mobile-menu');
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

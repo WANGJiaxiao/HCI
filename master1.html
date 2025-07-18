@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual University - index</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#36BFFA',
+            accent: '#FF7D00',
+            dark: '#1D2939',
+            light: '#F9FAFB'
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .bg-gradient-primary {
+        background: linear-gradient(135deg, #165DFF 0%, #36BFFA 100%);
+      }
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+    }
+  </style>
+</head>
+  
+<body class="font-inter text-dark bg-light">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between bg-white/90 backdrop-blur-md shadow-sm">
+      <a href="#" class="flex items-center space-x-2">
+        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+          <i class="fa fa-graduation-cap text-white text-xl"></i>
+        </div>
+        <span class="text-xl font-bold text-primary">Virtual University</span>
+      </a>
+    
+      <!-- 桌面导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+          <a href="index.html" class="font-medium text-dark hover:text-primary transition-colors">Home</a>
+          <a href="undergraduate1.html" class="font-medium text-dark hover:text-primary transition-colors">Undergraduate</a>
+          <a href="master1.html" class="font-medium text-primary border-b-2 border-primary">Master</a>
+          <a href="phd.html" class="font-medium text-dark hover:text-primary transition-colors">PhD</a>
+          <a href="application.html" class="font-medium text-dark hover:text-primary transition-colors">Application</a>
+          <a href="chat.html" id="chat-btn" class="ml-4 px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center">
+            <i class="fa fa-comments-o mr-2"></i>AI Assistant
+          </a>
+      </nav>
+    
+    <!-- 移动端菜单按钮 -->
+    <button id="menu-toggle" class="md:hidden text-dark focus:outline-none">
+      <i class="fa fa-bars text-xl"></i>
+    </button>
+  </div>
+  
+  <!-- 移动端导航菜单 -->
+  <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+    <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+      <a href="index.html" class="font-medium text-primary">Home</a>
+      <a href="undergraduate1.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Undergraduate</a>
+      <a href="master1.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Master</a>
+      <a href="phd.html" class="font-medium text-dark hover:text-primary transition-colors py-2">PhD</a>
+      <a href="application.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Application</a>
+      <a href="chat.html" id="open-ai-btn-mobile" class="px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center">
+        <i class="fa fa-comments-o mr-2"></i>AI Assistant</a>
+    </div>
+  </div>
+</header>
+
+
+  <!-- 主内容区 -->
+  <main>
+    <!-- 英雄区域 -->
+    <section class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-primary text-white">
+      <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0">
+          <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-shadow mb-6">
+            Master<br>Cultivate elites in professional fields
+          </h1>
+          <p class="text-lg md:text-xl mb-8 max-w-xl">
+            Postgraduate education at outstanding universities emphasizes the integration of academic depth and professional practice, providing students with systematic training in cutting-edge knowledge and research capabilities to facilitate their career development and academic advancement.
+          </p>
+          <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="#programs" class="px-8 py-3 bg-white text-primary font-medium rounded-lg hover:bg-opacity-90 transition-colors text-center">
+              Explore
+            </a>
+            <a href="application.html" class="px-8 py-3 bg-transparent border-2 border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors text-center">
+              Apply Now
+            </a>
+          </div>
+        </div>
+        <div class="md:w-1/2 relative">
+          <div class="relative z-10 rounded-xl overflow-hidden shadow-2xl">
+            <img src="https://picsum.photos/id/1005/600/400" alt="研究生在实验室进行研究" class="w-full h-auto">
+          </div>
+          <div class="absolute -bottom-6 -right-6 w-64 h-64 bg-secondary rounded-full opacity-20 blur-3xl -z-10"></div>
+          <div class="absolute -top-6 -left-6 w-64 h-64 bg-accent rounded-full opacity-10 blur-3xl -z-10"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 研究生项目概览 -->
+    <section id="programs" class="py-16 bg-light">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Explore Master Programs</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            We offer over 50 master's degree programs, covering both professional and academic master's degrees, with a focus on cultivating students' research capabilities, professional skills and innovative thinking.
+          </p>
+        </div>
+        
+        <!-- 学科分类标签 -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+          <button class="px-6 py-2 bg-primary text-white rounded-full">All</button>
+          <button class="px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full">Engineering</button>
+          <button class="px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full">Business</button>
+          <button class="px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full">Social Sciences</button>
+          <button class="px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full">Art</button>
+          <button class="px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full">Medicine</button>
+          <button class="px-6 py-2 bg-white text-dark hover:bg-primary/10 transition-colors rounded-full">Interdisciplinary</button>
+        </div>
+        
+        <!-- 项目列表 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- 项目卡片1 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1015/600/400" alt="工商管理硕士" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">MBA</h3>
+                <span class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">hot</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Cultivate business leaders with a global perspective. The curriculum covers core areas such as strategic management, marketing, and financial management.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 2 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-briefcase mr-1"></i> Work experience needed
+                </div>
+              </div>
+              <a href="#mba" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                know more
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片2 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1020/600/400" alt="数据科学硕士" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Data Science</h3>
+                <span class="px-3 py-1 bg-accent/10 text-accent text-sm rounded-full">High demand</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Combining statistics, computer science and domain knowledge, cultivate professional talents in data analysis and artificial intelligence application.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 1.5 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Master of Science
+                </div>
+              </div>
+              <a href="#data-science" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                know more
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片3 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1029/600/400" alt="电子与计算机工程硕士" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Electronic and Computer Engineering</h3>
+                <span class="px-3 py-1 bg-secondary/10 text-secondary text-sm rounded-full">Innovation</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Focusing on cutting-edge fields such as integrated circuits, communication systems, and embedded systems, we cultivate talents needed by high-tech industries.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 2 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Master of Engineering
+                </div>
+              </div>
+              <a href="#ece" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                Know more
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片4 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1040/600/400" alt="公共政策硕士" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Master of Public Policy</h3>
+                <span class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">hot</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Cultivate professional capabilities in policy analysis, formulation and evaluation to supply senior talents for government departments and non-profit organizations.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 2 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Master of Public Policy
+                </div>
+              </div>
+              <a href="#public-policy" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                Know more
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片5 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1050/600/400" alt="金融学硕士" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Master of Finance</h3>
+                <span class="px-3 py-1 bg-accent/10 text-accent text-sm rounded-full">High demand</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Deeply study professional knowledge such as financial markets, investment analysis, and risk management to cultivate high-end talents for the financial industry.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 1 year
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Master of Business
+                </div>
+              </div>
+              <a href="#finance" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                Know more
+              </a>
+            </div>
+          </div>
+          
+          <!-- 项目卡片6 -->
+          <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1060/600/400" alt="国际 relations硕士" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-xl font-bold">Master of international relationship</h3>
+                <span class="px-3 py-1 bg-secondary/10 text-secondary text-sm rounded-full">innovation</span>
+              </div>
+              <p class="text-gray-600 mb-4">
+                Study global political, economic and cultural interactions, and cultivate analytical and decision-making talents with an international perspective.
+              </p>
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <div class="flex items-center mr-4">
+                  <i class="fa fa-clock-o mr-1"></i> 2 years
+                </div>
+                <div class="flex items-center">
+                  <i class="fa fa-graduation-cap mr-1"></i> Master of Art
+                </div>
+              </div>
+              <a href="#ir" class="inline-block px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                Know more
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-10">
+          <a href="master2.html" class="inline-flex items-center text-primary font-medium hover:underline">
+            View all project of master programme <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 研究机会 -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Research Opportunities</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Outstanding universities offer postgraduate students abundant research resources and interdisciplinary cooperation platforms, supporting the practice and development of innovative ideas.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- 资源1 -->
+          <div class="bg-light rounded-xl p-8 shadow-sm card-hover">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary text-2xl mb-6">
+              <i class="fa fa-flask"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Research centers and laboratories</h3>
+            <p class="text-gray-600 mb-6">
+              With over 30 national and provincial-level research platforms, covering cutting-edge fields such as artificial intelligence, biotechnology, and new energy, it provides a first-class research environment for postgraduate students.
+            </p>
+            <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+              Exploration Research Center <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+          
+          <!-- 资源2 -->
+          <div class="bg-light rounded-xl p-8 shadow-sm card-hover">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary text-2xl mb-6">
+              <i class="fa fa-money"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Research Funding</h3>
+            <p class="text-gray-600 mb-6">
+              We offer a variety of research funding channels, including graduate research funds, funding for research projects by supervisors, and support for school-enterprise cooperation projects, to encourage original research.
+            </p>
+            <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+              Learn about funding opportunities <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+          
+          <!-- 资源3 -->
+          <div class="bg-light rounded-xl p-8 shadow-sm card-hover">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary text-2xl mb-6">
+              <i class="fa fa-globe"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">international cooperation project</h3>
+            <p class="text-gray-600 mb-6">
+              We have established joint training programs with over 50 top universities worldwide, supporting postgraduate students in participating in international academic conferences and exchange studies to broaden their international horizons.
+            </p>
+            <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+              Details of international cooperation<i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   <!-- 申请流程 -->
+    <section id="application" class="py-16 bg-light">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Apply for master program</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            To learn how to apply for graduate programs at outstanding universities, our admissions team will provide you with professional guidance.
+          </p>
+        </div>
+        
+        <!-- 申请步骤 -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-8">
+          <h3 class="text-2xl font-bold mb-8">Application Step</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+            <!-- 步骤1 -->
+            <div class="text-center">
+              <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                1
+              </div>
+              <h4 class="text-xl font-bold mb-2">identify the research direction</h4>
+              <p class="text-gray-600">
+                Based on your academic background and career goals, choose a suitable research direction and understand the research fields of the relevant supervisors.
+              </p>
+            </div>
+            
+            <!-- 步骤2 -->
+            <div class="text-center">
+              <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                2
+              </div>
+              <h4 class="text-xl font-bold mb-2">Communicate with Supervisor</h4>
+              <p class="text-gray-600">
+                Communicate with potential supervisors to learn about their research projects and laboratory conditions, and discuss your research interests and plans.
+              </p>
+            </div>
+            
+            <!-- 步骤3 -->
+            <div class="text-center">
+              <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                3
+              </div>
+              <h4 class="text-xl font-bold mb-2">submit application</h4>
+              <p class="text-gray-600">
+                Submit the application materials through the online application system to ensure that all materials are complete and meet the project requirements.
+              </p>
+            </div>
+            
+            <!-- 步骤4 -->
+            <div class="text-center">
+              <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                4
+              </div>
+              <h4 class="text-xl font-bold mb-2">Interview assessment</h4>
+              <p class="text-gray-600">
+                Some projects will arrange interviews or professional tests to assess your academic ability and research potential.
+              </p>
+            </div>
+            
+            <!-- 步骤5 -->
+            <div class="text-center">
+              <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                5
+              </div>
+              <h4 class="text-xl font-bold mb-2">Admitted</h4>
+              <p class="text-gray-600">
+                After receiving the admission notice, confirm the intention to enroll, handle the enrollment procedures, and arrange accommodation and registration matters.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Timeline -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-8">
+          <h3 class="text-2xl font-bold mb-8">Application Timeline</h3>
+
+          <div class="space-y-8 timeline">
+            <!-- Fall Admission -->
+            <div class="timeline-item">
+              <div class="flex">
+                <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-xl font-bold mb-2">Fall Admission Application</h4>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="bg-light rounded-xl p-4">
+                      <h5 class="font-bold text-primary mb-2">Application Opens</h5>
+                      <p class="text-gray-600">September 1</p>
+                    </div>
+                    <div class="bg-light rounded-xl p-4">
+                      <h5 class="font-bold text-primary mb-2">Priority Deadline</h5>
+                      <p class="text-gray-600">December 15</p>
+                    </div>
+                    <div class="bg-light rounded-xl p-4">
+                      <h5 class="font-bold text-primary mb-2">Final Deadline</h5>
+                      <p class="text-gray-600">April 1</p>
+                    </div>
+                  </div>
+                  <p class="text-gray-600">
+                    The fall semester is the main admission period, offering the most scholarship opportunities and course selections.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Spring Admission -->
+            <div class="timeline-item">
+              <div class="flex">
+                <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <div classml="-4">
+                  <h4 class="text-xl font-bold mb-2">Spring Admission Application</h4>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-light rounded-xl p-4">
+                      <h5 class="font-bold text-primary mb-2">Application Opens</h5>
+                      <p class="text-gray-600">May 1</p>
+                    </div>
+                    <div class="bg-light rounded-xl p-4">
+                      <h5 class="font-bold text-primary mb-2">Deadline</h5>
+                      <p class="text-gray-600">October 15</p>
+                    </div>
+                  </div>
+                  <p class="text-gray-600">
+                    Spring admission is suitable for students who wish to start their studies early. Some programs may not offer a spring admission option.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- International Student Application -->
+            <div class="timeline-item">
+              <div class="flex">
+                <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+                  <i class="fa fa-globe"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-xl font-bold mb-2">International Student Application</h4>
+                  <div class="bg-light rounded-xl p-4 mb-4">
+                    <h5 class="font-bold text-primary mb-2">Deadline</h5>
+                    <p class="text-gray-600">Fall: February 1; Spring: August 1</p>
+                  </div>
+                  <p class="text-gray-600">
+                    International students need to allow more time for visa procedures and are advised to submit their applications as early as possible.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scholarship Application -->
+            <div class="timeline-item">
+              <div class="flex">
+                <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+                  <i class="fa fa-money"></i>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-xl font-bold mb-2">Scholarship Application</h4>
+                  <div class="bg-light rounded-xl p-4 mb-4">
+                    <h5 class="font-bold text-accent mb-2">Deadline</h5>
+                    <p class="text-gray-600">Same as the program application deadline</p>
+                  </div>
+                  <p class="text-gray-600">
+                    Most scholarships are automatically reviewed with the graduate application. Some specific scholarships require separate applications.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Application Requirements -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+          <h3 class="text-2xl font-bold mb-8">Application Requirements</h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Left Side -->
+            <div>
+              <h4 class="text-xl font-bold mb-4">Required Documents</h4>
+
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Bachelor's Degree Certificate</h5>
+                    <p class="text-gray-600">
+                      Bachelor's degree diploma and transcript, with a GPA typically required to be above 3.0/4.0.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Letters of Recommendation</h5>
+                    <p class="text-gray-600">
+                      Typically, 3 academic letters of recommendation are required, with recommenders familiar with your academic abilities and research potential.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Personal Statement/Research Plan</h5>
+                    <p class="text-gray-600">
+                      Describe your academic background, research interests, career goals, and why you have chosen this program and supervisor.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Standardized Test Scores</h5>
+                    <p class="text-gray-600">
+                      Depending on the major, GRE or GMAT scores may be required, with GMAT often required for business programs.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-check"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">English Language Proficiency</h5>
+                    <p class="text-gray-600">
+                      International students need to provide TOEFL (minimum 90) or IELTS (minimum 6.5) scores.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Side -->
+            <div>
+              <h4 class="text-xl font-bold mb-4">Other Documents</h4>
+
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-plus"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Academic Papers or Portfolio</h5>
+                    <p class="text-gray-600">
+                      Some programs require submission of published papers, research reports, or professional portfolios to demonstrate academic ability.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-plus"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Interview</h5>
+                    <p class="text-gray-600">
+                      Most programs will arrange interviews (online or in-person) to assess your professional knowledge and research potential.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-plus"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Professional Background Requirements</h5>
+                    <p class="text-gray-600">
+                      Some majors may have specific undergraduate background requirements, and applicants from other majors may need to complete prerequisite courses.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center text-secondary text-sm flex-shrink-0 mt-1">
+                    <i class="fa fa-plus"></i>
+                  </div>
+                  <div class="ml-3">
+                    <h5 class="font-bold">Work Experience</h5>
+                    <p class="text-gray-600">
+                      Some master's programs (such as MBA) require relevant work experience, typically 2-5 years.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 bg-primary/5 rounded-xl p-6 border border-primary/20">
+                <a href="application.html" class="block">
+                <h4 class="font-bold text-primary mb-4 flex items-center">
+                  <i class="fa fa-arrow-right mr-2"></i> Start Application
+                </h4>
+                </a>
+                <p class="text-gray-700">It is recommended to start preparing application materials 6-12 months in advance, especially contacting supervisors and preparing research plans, which require sufficient time. Please check the specific program pages for detailed information as different programs may have special requirements.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        </section>
+    
+
+    <!-- Frequently Asked Questions -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">Frequently Asked Questions</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Learn about common questions and answers regarding graduate applications and studies. If you have other questions, please contact our admissions team.
+          </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto">
+          <div class="space-y-4">
+            <!-- FAQ 1 -->
+            <div class="bg-light rounded-xl overflow-hidden">
+              <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                <h3 class="text-lg font-bold">How long is the duration of a graduate program?</h3>
+                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+              </button>
+              <div class="faq-content px-6 pb-6 hidden">
+                <p class="text-gray-600">
+                  The duration of a master's program at our university is typically 1-2 years. Research-based master's programs usually last for 2 years, while professional master's programs may be 1-1.5 years. Some programs offer an accelerated option, allowing you to complete your studies in a shorter period.
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="bg-light rounded-xl overflow-hidden">
+              <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                <h3 class="text-lg font-bold">What scholarship opportunities are available for graduate students?</h3>
+                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+              </button>
+              <div class="faq-content px-6 pb-6 hidden">
+                <p class="text-gray-600">
+                  We offer a variety of graduate scholarships, including full scholarships, teaching assistantships, research assistantships, and outstanding student scholarships. Scholarships typically cover tuition fees and provide a living allowance. The competition for scholarships is intense, and they are primarily awarded based on academic performance and research potential.
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="bg-light rounded-xl overflow-hidden">
+              <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                <h3 class="text-lg font-bold">How can I choose the right supervisor?</h3>
+                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+              </button>
+              <div class="faq-content px-6 pb-6 hidden">
+                <p class="text-gray-600">
+                  You can explore the research interests and publications of potential supervisors on the faculty websites. Choose a supervisor whose research aligns with your interests. It is recommended to contact potential supervisors via email before applying, introducing your background and research interests, and inquiring about available positions.
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="bg-light rounded-xl overflow-hidden">
+              <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                <h3 class="text-lg font-bold">Can I change my major during graduate studies?</h3>
+                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+              </button>
+              <div class="faq-content px-6 pb-6 hidden">
+                <p class="text-gray-600">
+                  It is possible to change majors during graduate studies, but you must meet the admission requirements of the target major and obtain consent from both the current and target major supervisors. Changing majors across different fields may require you to complete additional courses, potentially extending your study period. It is advisable to communicate with the graduate coordinators of both programs before applying.
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="bg-light rounded-xl overflow-hidden">
+              <button class="faq-toggle w-full flex justify-between items-center p-6 text-left focus:outline-none">
+                <h3 class="text-lg font-bold">Are there internship opportunities for graduate students?</h3>
+                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+              </button>
+              <div class="faq-content px-6 pb-6 hidden">
+                <p class="text-gray-600">
+                  Yes, our university's career development center provides a wide range of internship opportunities and career guidance for graduate students. Many professional master's programs include internship credits and have close collaborations with industry partners. Research-based master's students can also participate in corporate R&D projects or research projects at academic institutions during the summer break.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <i class="fa fa-graduation-cap text-white text-xl"></i>
+            </div>
+            <span class="text-xl font-bold">Virtual University</span>
+          </div>
+          <p class="text-gray-400 mb-6">
+            Virtual University is committed to providing a world-class educational and research environment and cultivating leaders with a global perspective.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-weixin"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Quick Links</h3>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="undergraduate1.html" class="text-gray-400 hover:text-white transition-colors">Undergraduate</a></li>
+            <li><a href="master1.html" class="text-gray-400 hover:text-white transition-colors">Master</a></li>
+            <li><a href="phd.html" class="text-gray-400 hover:text-white transition-colors">PhD</a></li>
+            <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Resources</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Academic Calendar</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tuition Fees and Scholarships</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Campus life</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">International students</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Career development</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Alumni network</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Subscribe us</h3>
+          <p class="text-gray-400 mb-4">
+            Subscribe to our email to get the latest admissions information and campus events.
+          </p>
+          <form class="mb-4">
+            <div class="flex">
+              <input type="email" placeholder="Enter your email" class="px-4 py-2 bg-white/10 text-white border border-white/20 rounded-l-lg focus:outline-none focus:border-primary w-full">
+              <button type="submit" class="px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-primary/90 transition-colors">
+                Subscribe
+              </button>
+            </div>
+          </form>
+          <p class="text-gray-400 text-sm">
+            We respect your privacy and will not share your information with any third party.
+          </p>
+        </div>
+      </div>
+      
+      <div class="border-t border-white/10 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            &copy; 2025 Virtual University. All rights reserved.
+          </p>
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Use</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Site Map</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2', 'shadow-md');
+        navbar.classList.remove('py-3');
+      } else {
+        navbar.classList.add('py-3');
+        navbar.classList.remove('py-2', 'shadow-md');
+      }
+    });
+    
+    // 移动端菜单切换
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // FAQ 切换
+    document.querySelectorAll('.faq-toggle').forEach(toggle => {
+      toggle.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        const icon = this.querySelector('i');
+        
+        // 切换内容显示/隐藏
+        content.classList.toggle('hidden');
+        
+        // 切换图标旋转
+        if (content.classList.contains('hidden')) {
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // 如果是移动端，点击导航链接后关闭菜单
+          const mobileMenu = document.getElementById('mobile-menu');
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

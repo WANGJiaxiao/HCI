@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual University - AI Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#36BFFA',
+            accent: '#FF7D00',
+            dark: '#1D2939',
+            light: '#F9FAFB',
+            'gray-light': '#F5F7FA',
+            'gray-medium': '#E5E7EB',
+            'gray-dark': '#6B7280',
+            'danger': '#F87171'
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .bg-gradient-primary {
+        background: linear-gradient(135deg, #165DFF 0%, #36BFFA 100%);
+      }
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      .chat-bubble-user {
+        background-color: #165DFF;
+        color: white;
+        border-radius: 18px 18px 4px 18px;
+      }
+      .chat-bubble-ai {
+        background-color: #F9FAFB;
+        color: #1D2939;
+        border-radius: 18px 18px 18px 4px;
+      }
+      .scrollbar-thin {
+        scrollbar-width: thin;
+      }
+      .scrollbar-thin::-webkit-scrollbar {
+        width: 4px;
+      }
+      .scrollbar-thin::-webkit-scrollbar-thumb {
+        background-color: rgba(22, 93, 255, 0.2);
+        border-radius: 2px;
+      }
+      .typing-indicator {
+        display: inline-flex;
+        align-items: center;
+      }
+      .typing-indicator span {
+        height: 8px;
+        width: 8px;
+        margin: 0 1px;
+        background-color: #6B7280;
+        border-radius: 50%;
+        display: block;
+        animation: typing 1.4s infinite ease-in-out both;
+      }
+      .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+      .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+      
+      @keyframes typing {
+        0% { transform: translateY(0px); }
+        28% { transform: translateY(-5px); }
+        44% { transform: translateY(0px); }
+      }
+      .modal-backdrop {
+        backdrop-filter: blur(2px);
+      }
+    }
+  </style>
+</head>
+
+<body class="font-inter text-dark bg-light overflow-hidden h-screen">
+  <!-- 确认删除对话框 -->
+  <div id="delete-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+    <div class="absolute inset-0 bg-black bg-opacity-50 modal-backdrop"></div>
+    <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md relative z-10 transform transition-all">
+      <h3 class="text-xl font-bold mb-2">Delete Conversation</h3>
+      <p class="text-gray-dark mb-6">Are you sure you want to delete this conversation? This action cannot be undone.</p>
+      <div class="flex justify-end space-x-3">
+        <button id="cancel-delete" class="px-4 py-2 border border-gray-medium rounded-lg hover:bg-gray-light transition-colors">
+          Cancel
+        </button>
+        <button id="confirm-delete" class="px-4 py-2 bg-danger text-white rounded-lg hover:bg-danger/90 transition-colors">
+          Confirm Deletion
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- AI咨询界面 -->
+  <div id="ai-consultation" class="flex h-screen">
+    <!-- 左侧：对话列表 -->
+    <div class="w-full md:w-80 bg-white border-r border-gray-medium flex flex-col h-full">
+      <!-- 头部 -->
+      <div class="p-4 border-b border-gray-medium flex items-center justify-between">
+        <h3 class="font-bold text-lg">History Conversations</h3>
+        <button id="new-chat-btn-sm" class="text-primary hover:text-primary/80 transition-colors">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+      
+      <!-- 搜索框 -->
+      <div class="p-4 border-b border-gray-medium">
+        <div class="relative">
+          <input type="text" placeholder="Search conversations..." class="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-light focus:outline-none focus:ring-2 focus:ring-primary/50">
+          <i class="fa fa-search absolute left-3 top-3 text-gray-dark"></i>
+        </div>
+      </div>
+      
+      <!-- 对话列表 -->
+      <div id="chat-list" class="flex-1 overflow-y-auto scrollbar-thin">
+        <!-- 对话列表将通过JavaScript动态生成 -->
+      </div>
+      
+      <!-- 底部 -->
+      <div class="p-4 border-t border-gray-medium">
+        <button id="new-chat-btn" class="w-full py-2 px-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center">
+          <i class="fa fa-plus-circle mr-2"></i>New Conversation
+        </button>
+      </div>
+    </div>
+    
+    <!-- 右侧：聊天窗口 -->
+    <div class="flex-1 flex flex-col h-full bg-gray-light">
+      <!-- 头部 -->
+      <div class="p-4 border-b border-gray-medium bg-white flex items-center justify-between">
+        <div class="flex items-center">
+          <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white mr-3">
+            <i class="fa fa-robot"></i>
+          </div>
+          <div>
+            <h3 id="current-chat-title" class="font-bold">Virtual University AI Assistant</h3>
+            <p class="text-xs text-gray-dark">Online · Usually replies within a few minutes</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button class="text-gray-dark hover:text-dark transition-colors">
+            <i class="fa fa-star-o"></i>
+          </button>
+          <button class="text-gray-dark hover:text-dark transition-colors">
+            <i class="fa fa-file-text-o"></i>
+          </button>
+          <button class="text-gray-dark hover:text-dark transition-colors">
+            <i class="fa fa-cog"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- 聊天内容 -->
+      <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-thin">
+        <!-- 聊天内容将通过JavaScript动态生成 -->
+      </div>
+      
+      <!-- 输入区域 -->
+      <div class="p-4 border-t border-gray-medium bg-white">
+        <div class="flex flex-col space-y-3">
+          <div class="flex items-center space-x-3 text-gray-dark">
+            <button class="hover:text-primary transition-colors">
+              <i class="fa fa-image"></i>
+            </button>
+            <button class="hover:text-primary transition-colors">
+              <i class="fa fa-file-o"></i>
+            </button>
+            <button class="hover:text-primary transition-colors">
+              <i class="fa fa-smile-o"></i>
+            </button>
+            <button class="hover:text-primary transition-colors">
+              <i class="fa fa-microphone"></i>
+            </button>
+          </div>
+          <div class="flex items-center">
+            <input type="text" id="user-message" placeholder="Enter your question..." class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+            <button id="send-message" class="ml-3 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center">
+              <i class="fa fa-paper-plane mr-2"></i>Send
+            </button>
+          </div>
+          <p class="text-xs text-gray-dark text-center">
+            We value your privacy. Your conversation is used solely for providing advisory services.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 对话数据管理
+    class ChatManager {
+      constructor() {
+        this.chats = [];
+        this.currentChatId = null;
+        this.chatToDelete = null; // 待删除的对话ID
+        this.init();
+        this.bindDeleteEvents();
+      }
+      
+      // 初始化：从本地存储加载对话
+      init() {
+        const savedChats = localStorage.getItem('excellenceUniChats');
+        if (savedChats) {
+          this.chats = JSON.parse(savedChats);
+        } else {
+          // 如果没有保存的对话，创建一个初始对话
+          const initialChat = this.createNewChat();
+          this.currentChatId = initialChat.id;
+        }
+        
+        this.renderChatList();
+        
+        if (this.currentChatId) {
+          this.loadChat(this.currentChatId);
+        }
+      }
+      
+      // 创建新对话
+      createNewChat() {
+        const newChat = {
+          id: Date.now().toString(),
+          title: 'New Conversation',
+          messages: [
+            {
+              sender: 'ai',
+              content: `Hello! I’m the Virtual University AI Advisor, and I'm happy to assist you. You can ask me about:
+              <ul class="list-disc pl-5 mt-2 text-gray-600 space-y-1">
+                <li>Details about academic programs across disciplines/li>
+                <li>Application process and deadlines</li>
+                <li>Scholarship and financial aid information</li>
+                <li>Campus life and student services</li>
+                <li>Recommended programs based on your background</li>
+              </ul>
+              <p class="text-dark mt-3">How can I assist you today?</p>`,
+              timestamp: new Date().toISOString()
+            }
+          ],
+          updatedAt: new Date().toISOString()
+        };
+        
+        this.chats.unshift(newChat); // 添加到数组开头
+        this.currentChatId = newChat.id;
+        this.saveChats();
+        this.renderChatList();
+        this.loadChat(newChat.id);
+        
+        return newChat;
+      }
+      
+      // 保存消息到当前对话
+      addMessage(sender, content) {
+        if (!this.currentChatId) return;
+        
+        const chatIndex = this.chats.findIndex(chat => chat.id === this.currentChatId);
+        if (chatIndex === -1) return;
+        
+        const newMessage = {
+          sender,
+          content,
+          timestamp: new Date().toISOString()
+        };
+        
+        this.chats[chatIndex].messages.push(newMessage);
+        this.chats[chatIndex].updatedAt = new Date().toISOString();
+        
+        // 如果是用户消息，更新对话标题
+        if (sender === 'user' && this.chats[chatIndex].title === 'New Conversation') {
+          // 从用户消息中提取前20个字符作为标题
+          const plainText = content.replace(/<[^>]*>?/gm, '');
+          this.chats[chatIndex].title = plainText.substring(0, 20) + (plainText.length > 20 ? '...' : '');
+        }
+        
+        this.saveChats();
+        this.renderChatList();
+        this.renderMessage(newMessage);
+      }
+      
+      // 加载指定对话
+      loadChat(chatId) {
+        const chat = this.chats.find(chat => chat.id === chatId);
+        if (!chat) return;
+        
+        this.currentChatId = chatId;
+        const chatMessagesContainer = document.getElementById('chat-messages');
+        chatMessagesContainer.innerHTML = '';
+        
+        // 更新当前聊天标题
+        document.getElementById('current-chat-title').textContent = chat.title;
+        
+        // 渲染所有消息
+        chat.messages.forEach(message => {
+          this.renderMessage(message);
+        });
+        
+        // 滚动到底部
+        this.scrollToBottom();
+      }
+      
+      // 渲染单条消息
+      renderMessage(message) {
+        const chatMessagesContainer = document.getElementById('chat-messages');
+        const messageDiv = document.createElement('div');
+        
+        if (message.sender === 'user') {
+          messageDiv.className = 'flex items-start justify-end';
+          messageDiv.innerHTML = `
+            <div class="max-w-[85%] bg-primary p-4 rounded-xl shadow-sm chat-bubble-user">
+              <p class="text-white">${message.content}</p>
+            </div>
+            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white ml-3 flex-shrink-0">
+              <i class="fa fa-user"></i>
+            </div>
+          `;
+        } else {
+          messageDiv.className = 'flex items-start';
+          messageDiv.innerHTML = `
+            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0">
+              <i class="fa fa-robot"></i>
+            </div>
+            <div class="max-w-[85%] bg-white p-4 rounded-xl shadow-sm chat-bubble-ai">
+              <p class="text-dark">${message.content}</p>
+            </div>
+          `;
+        }
+        
+        chatMessagesContainer.appendChild(messageDiv);
+        this.scrollToBottom();
+      }
+      
+      // 渲染对话列表
+      renderChatList() {
+        const chatListContainer = document.getElementById('chat-list');
+        chatListContainer.innerHTML = '';
+        
+        this.chats.forEach(chat => {
+          const isActive = chat.id === this.currentChatId;
+          const lastMessage = chat.messages[chat.messages.length - 1];
+          const lastMessageText = lastMessage.content.replace(/<[^>]*>?/gm, '').substring(0, 30) + (lastMessage.content.length > 30 ? '...' : '');
+          
+          // 格式化时间
+          const date = new Date(chat.updatedAt);
+          let timeText = '';
+          const now = new Date();
+          const diffInDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+          
+          if (diffInDays === 0) {
+            timeText = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+          } else if (diffInDays === 1) {
+            timeText = 'Yesterday';
+          } else if (diffInDays < 7) {
+            timeText = `${diffInDays}days ago`;
+          } else {
+            timeText = `${date.getMonth() + 1}/${date.getDate()}`;
+          }
+          
+          const chatItem = document.createElement('div');
+          chatItem.className = `p-4 cursor-pointer transition-colors flex items-center ${isActive ? 'bg-primary/5 border-l-4 border-primary' : 'hover:bg-gray-light'}`;
+          chatItem.setAttribute('data-chat-id', chat.id);
+          
+          // 创建删除按钮
+          const deleteBtn = document.createElement('button');
+          deleteBtn.className = 'text-gray-dark hover:text-danger transition-colors opacity-0 group-hover:opacity-100 absolute right-3';
+          deleteBtn.innerHTML = '<i class="fa fa-trash-o"></i>';
+          deleteBtn.setAttribute('data-chat-id', chat.id);
+          deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // 阻止事件冒泡到父元素
+            this.showDeleteConfirmation(chat.id);
+          });
+          
+          // 设置聊天项内容
+          chatItem.innerHTML = `
+            <div class="w-10 h-10 ${isActive ? 'bg-primary' : 'bg-gray-medium'} rounded-full flex items-center justify-center text-white mr-3">
+              <i class="fa fa-robot"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4 class="font-medium truncate">${chat.title}</h4>
+              <p class="text-xs text-gray-dark truncate mt-1">${lastMessage.sender === 'ai' ? 'AI: ' : 'You: '}${lastMessageText}</p>
+            </div>
+            <div class="text-right ml-2">
+              <p class="text-xs text-gray-dark">${timeText}</p>
+            </div>
+          `;
+          
+          // 添加删除按钮到聊天项
+          chatItem.style.position = 'relative';
+          chatItem.appendChild(deleteBtn);
+          
+          // 添加鼠标悬停效果
+          chatItem.addEventListener('mouseenter', () => {
+            deleteBtn.style.opacity = '1';
+          });
+          
+          chatItem.addEventListener('mouseleave', () => {
+            deleteBtn.style.opacity = '0';
+          });
+          
+          // 添加点击事件
+          chatItem.addEventListener('click', () => {
+            this.loadChat(chat.id);
+          });
+          
+          chatListContainer.appendChild(chatItem);
+        });
+      }
+      
+      // 显示删除确认对话框
+      showDeleteConfirmation(chatId) {
+        this.chatToDelete = chatId;
+        document.getElementById('delete-modal').classList.remove('hidden');
+      }
+      
+      // 隐藏删除确认对话框
+      hideDeleteConfirmation() {
+        this.chatToDelete = null;
+        document.getElementById('delete-modal').classList.add('hidden');
+      }
+      
+      // 删除对话
+      deleteChat(chatId) {
+        if (!chatId) return;
+        
+        // 查找对话索引
+        const chatIndex = this.chats.findIndex(chat => chat.id === chatId);
+        if (chatIndex === -1) return;
+        
+        // 如果删除的是当前对话，需要切换到另一个对话或创建新对话
+        const isCurrentChat = this.currentChatId === chatId;
+        
+        // 从数组中删除对话
+        this.chats.splice(chatIndex, 1);
+        
+        // 如果删除的是当前对话
+        if (isCurrentChat) {
+          if (this.chats.length > 0) {
+            // 如果还有其他对话，加载第一个对话
+            this.currentChatId = this.chats[0].id;
+            this.loadChat(this.currentChatId);
+          } else {
+            // 如果没有对话了，创建一个新对话
+            this.createNewChat();
+          }
+        }
+        
+        // 保存并重新渲染
+        this.saveChats();
+        this.renderChatList();
+        this.hideDeleteConfirmation();
+      }
+      
+      // 保存对话到本地存储
+      saveChats() {
+        localStorage.setItem('excellenceUniChats', JSON.stringify(this.chats));
+      }
+      
+      // 滚动到聊天底部
+      scrollToBottom() {
+        const chatMessagesContainer = document.getElementById('chat-messages');
+        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+      }
+      
+      // 绑定删除相关事件
+      bindDeleteEvents() {
+        // 取消删除
+        document.getElementById('cancel-delete').addEventListener('click', () => {
+          this.hideDeleteConfirmation();
+        });
+        
+        // 确认删除
+        document.getElementById('confirm-delete').addEventListener('click', () => {
+          this.deleteChat(this.chatToDelete);
+        });
+        
+        // 点击背景关闭对话框
+        document.querySelector('.modal-backdrop').addEventListener('click', () => {
+          this.hideDeleteConfirmation();
+        });
+      }
+      
+      // 模拟AI回复
+      generateAIResponse(userMessage) {
+        // 显示"正在输入"状态
+        const chatMessagesContainer = document.getElementById('chat-messages');
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'flex items-start';
+        typingDiv.id = 'typing-indicator';
+        typingDiv.innerHTML = `
+          <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0">
+            <i class="fa fa-robot"></i>
+          </div>
+          <div class="max-w-[85%] bg-white p-4 rounded-xl shadow-sm chat-bubble-ai">
+            <div class="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        `;
+        chatMessagesContainer.appendChild(typingDiv);
+        this.scrollToBottom();
+        
+        // 2秒后生成回复
+        setTimeout(() => {
+          // 移除"正在输入"指示器
+          document.getElementById('typing-indicator')?.remove();
+          
+          let aiResponse = '';
+          
+          // 根据用户消息内容生成不同的回复
+          if (userMessage.toLowerCase().includes('program') || userMessage.toLowerCase().includes('major')) {
+            aiResponse = `Our university offers a wide range of academic programs, including:
+            <ul class="list-disc pl-5 mt-2 text-gray-600 space-y-1">
+              <li>Computer Science: Trains students in both theoretical and practical skills to meet the demands of the fast-evolving tech industry.</li>
+              <li>Finance: Provides comprehensive financial knowledge and analytical tools to develop leadership and innovation in the finance sector.</li>
+              <li>Biomedical Engineering: Combines engineering principles with biomedical sciences to train students in designing and developing medical devices and systems.</li>
+              <li>Master of Artificial Intelligence: Focuses on cutting-edge AI technologies and applications, equipping students with expertise in machine learning, natural language processing, and more.</li>
+              <li>Master of Business Administration: Cultivates globally-minded business leaders with comprehensive management knowledge and hands-on experience.</li>
+            </ul>
+            Please let me know your interests and background, and I can recommend a program that best suits you.`;
+          } else if (userMessage.toLowerCase().includes('recommend') || userMessage.toLowerCase().includes('suitable')) {
+            aiResponse = `To help you find the right program, I'd like to learn a bit about your background:
+            <ol class="list-decimal pl-5 mt-2 text-gray-600 space-y-1">
+              <li>What is your current level of education (high school, undergraduate, master's, etc.)?</li>
+              <li>Which academic fields interest you most (e.g., computer science, engineering, business, science)?</li>
+              <li>Do you have a specific research interest or career goal?</li>
+            </ol>
+            Please share this information, and I’ll recommend the best-suited program for you.`;
+          } else if (userMessage.toLowerCase().includes('apply') || userMessage.toLowerCase().includes('application process')) {
+            aiResponse = `The application process includes the following steps:
+            <ol class="list-decimal pl-5 mt-2 text-gray-600 space-y-1">
+              <li>Select a Program: Browse our undergraduate, graduate, and doctoral programs and choose the one that fits your academic path.</li>
+              <li>Prepare Materials: Gather required documents such as transcripts, recommendation letters, and personal statement.</li>
+              <li>Submit Application: Apply through our online system and pay the application fee.</li>
+              <li>Receive Admission: After receiving an offer, complete enrollment procedures and prepare for orientation.</li>
+            </ol>
+            Would you like more details about any of these steps?`;
+          } else if (userMessage.toLowerCase().includes('scholarship') || userMessage.toLowerCase().includes('financial aid')) {
+            aiResponse = `We offer a variety of scholarships and financial aid options:
+            <ul class="list-disc pl-5 mt-2 text-gray-600 space-y-1">
+              <li>Excellence Academic Scholarship: Awarded to outstanding new students, covering 50%–100% of tuition fees.</li>
+              <li>International Student Scholarship: Specifically designed for international students based on academic performance and need assessment.</li>
+              <li>Research Assistantship: Graduate students can apply for funding by participating in research projects.</li>
+              <li>Need-Based Financial Aid: Assessed based on family financial situation to support students in need.</li>
+            </ul>
+            The scholarship application deadline typically aligns with the program application deadline. Details are available on each program’s page.`;
+          } else if (userMessage.toLowerCase().includes('campus') || userMessage.toLowerCase().includes('life')) {
+            aiResponse = `Campus life at Virtual University is vibrant and engaging:
+            <ul class="list-disc pl-5 mt-2 text-gray-600 space-y-1">
+              <li>Housing: A variety of student housing options are available, including single rooms, shared rooms, and apartment-style accommodations.</li>
+              <li>Clubs: Over 200 student organizations spanning academics, culture, sports, and the arts.</li>
+              <li>Sports Facilities: Modern gymnasiums, swimming pools, and sports fields are freely accessible to all students.</li>
+              <li>Student Services: Comprehensive support including counseling, career advising, and academic assistance.</li>
+              <li>Campus Events: Regular lectures, concerts, cultural festivals, and other events enrich student life.</li>
+            </ul>
+            We are committed to providing a safe, comfortable, and diverse campus environment.`;
+          } else {
+            aiResponse = `Thank you for reaching out! I’m the Virtual University AI Advisor. I can help you understand our academic programs, admission process, or recommend suitable programs based on your background. Feel free to share your needs, and I’ll do my best to assist you.`;
+          }
+          
+          this.addMessage('ai', aiResponse);
+        }, 2000);
+      }
+      
+      // 绑定删除事件处理程序
+      bindDeleteEvents() {
+        document.getElementById('cancel-delete').addEventListener('click', () => {
+          this.hideDeleteConfirmation();
+        });
+        
+        document.getElementById('confirm-delete').addEventListener('click', () => {
+          this.deleteChat(this.chatToDelete);
+        });
+        
+        // 点击背景关闭对话框
+        document.querySelector('.modal-backdrop').addEventListener('click', () => {
+          this.hideDeleteConfirmation();
+        });
+      }
+    }
+    
+    // 初始化聊天管理器
+    const chatManager = new ChatManager();
+    
+    // 获取DOM元素
+    const userInput = document.getElementById('user-message');
+    const sendBtn = document.getElementById('send-message');
+    const newChatBtn = document.getElementById('new-chat-btn');
+    const newChatBtnSm = document.getElementById('new-chat-btn-sm');
+    
+    // 发送消息
+    function sendMessage() {
+      const message = userInput.value.trim();
+      if (message) {
+        // 移除可能存在的"正在输入"指示器
+        document.getElementById('typing-indicator')?.remove();
+        
+        // 添加用户消息
+        chatManager.addMessage('user', message);
+        
+        // 清空输入框
+        userInput.value = '';
+        
+        // 生成AI回复
+        chatManager.generateAIResponse(message);
+      }
+    }
+    
+    // 绑定发送按钮事件
+    sendBtn.addEventListener('click', sendMessage);
+    
+    // 按Enter键发送消息
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+    
+    // 新建对话按钮事件
+    newChatBtn.addEventListener('click', () => {
+      chatManager.createNewChat();
+    });
+    
+    // 小屏幕新建对话按钮事件
+    newChatBtnSm.addEventListener('click', () => {
+      chatManager.createNewChat();
+    });
+  </script>
+</body>
+</html>

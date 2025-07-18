@@ -1,0 +1,1125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual University - Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#36BFFA',
+            accent: '#FF7D00',
+            dark: '#1D2939',
+            light: '#F9FAFB'
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .bg-gradient-primary {
+        background: linear-gradient(135deg, #165DFF 0%, #36BFFA 100%);
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .form-input-focus {
+        @apply focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200;
+      }
+    }
+  </style>
+</head>
+
+<body class="font-inter text-dark bg-light">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between bg-white/90 backdrop-blur-md shadow-sm">
+      <a href="#" class="flex items-center space-x-2">
+        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+          <i class="fa fa-graduation-cap text-white text-xl"></i>
+        </div>
+        <span class="text-xl font-bold text-primary">Virtual University</span>
+      </a>
+
+      <!-- 桌面导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="font-medium text-dark hover:text-primary transition-colors">Home</a>
+        <a href="undergraduate1.html" class="font-medium text-dark hover:text-primary transition-colors">Undergraduate</a>
+        <a href="master1.html" class="font-medium text-dark hover:text-primary transition-colors">Master</a>
+        <a href="phd.html" class="font-medium text-dark hover:text-primary transition-colors">PhD</a>
+        <a href="application.html" class="font-medium text-primary border-b-2 border-primary">Application System</a>
+        <a href="chat.html" id="chat-btn" class="ml-4 px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center">
+          <i class="fa fa-comments-o mr-2"></i>AI Assistant
+        </a>
+      </nav>
+
+      <!-- 移动端菜单按钮 -->
+      <button id="menu-toggle" class="md:hidden text-dark focus:outline-none">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="index.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Home</a>
+        <a href="undergraduate1.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Undergraduate</a>
+        <a href="master1.html" class="font-medium text-dark hover:text-primary transition-colors py-2">Master</a>
+        <a href="phd.html" class="font-medium text-dark hover:text-primary transition-colors py-2">PhD</a>
+        <a href="application.html" class="font-medium text-primary py-2">Application System</a>
+        <a href="chat.html" id="open-ai-btn-mobile" class="px-5 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center"><i class="fa fa-comments-o mr-2"></i>AI Assistant
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main>
+    <!-- 英雄区域 -->
+    <section class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-primary text-white">
+      <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0">
+          <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-shadow mb-6">
+            Start Your<br>Academic Journey
+          </h1>
+          <p class="text-lg md:text-xl mb-8 max-w-xl">
+            Fill out the form below to apply for undergraduate, graduate, or PhD programs at Virtual University . Our admissions team will review your application as soon as possible.
+          </p>
+        </div>
+        <div class="md:w-1/2 relative">
+          <div class="relative z-10 rounded-xl overflow-hidden shadow-2xl">
+            <img src="https://fastly.picsum.photos/id/1/5000/3333.jpg?hmac=Asv2DU3rA_5D1xSe22xZK47WEAN0wjWeFOhzd13ujW4" alt="学生提交申请" class="w-full h-auto">
+          </div>
+          <div class="absolute -bottom-6 -right-6 w-64 h-64 bg-secondary rounded-full opacity-20 blur-3xl -z-10"></div>
+          <div class="absolute -top-6 -left-6 w-64 h-64 bg-accent rounded-full opacity-10 blur-3xl -z-10"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 申请表单 -->
+    <section class="py-16 bg-light">
+      <div class="container mx-auto px-4">
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div class="md:flex">
+            <!-- 表单步骤导航 -->
+            <div class="md:w-1/4 bg-primary text-white p-8">
+              <h2 class="text-2xl font-bold mb-8">Application Steps</h2>
+
+              <div class="space-y-6" id="step-nav">
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-accent text-white rounded-full flex items-center justify-center font-bold mr-4">1</div>
+                  <span class="font-medium">Personal Information</span>
+                </div>
+
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-white/20 text-white rounded-full flex items-center justify-center font-bold mr-4">2</div>
+                  <span class="font-medium">Program Selection</span>
+                </div>
+
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-white/20 text-white rounded-full flex items-center justify-center font-bold mr-4">3</div>
+                  <span class="font-medium">Academic Background</span>
+                </div>
+
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-white/20 text-white rounded-full flex items-center justify-center font-bold mr-4">4</div>
+                  <span class="font-medium">Upload Materials</span>
+                </div>
+              </div>
+
+              <div class="mt-12">
+                <h3 class="font-bold mb-4">Need Help?</h3>
+                <p class="text-white/80 mb-4">
+                  If you encounter any issues during the application process, our admissions advisors are here to assist you every step of the way.
+                </p>
+                <a href="chat.html" class="inline-flex items-center text-white hover:underline">
+                  <i class="fa fa-comments-o mr-2"></i> AI Assistant
+                </a>
+              </div>
+            </div>
+
+            <!-- 表单内容 -->
+            <div class="md:w-3/4 p-8 md:p-12">
+              <!-- 个人信息 -->
+              <div id="step-1" class="step">
+                <div class="mb-8">
+                  <h2 class="text-3xl font-bold text-dark mb-2">Personal Information</h2>
+                  <p class="text-gray-600">
+                    Please fill in your personal information.
+                  </p>
+                </div>
+
+                <!-- 表单步骤指示器 -->
+                <div class="flex justify-between items-center mb-10">
+                  <div class="flex-1 h-1 bg-gray-200">
+                    <div class="h-full bg-primary" style="width: 20%"></div>
+                  </div>
+                  <div class="mx-4 text-sm font-medium text-gray-500">Step 1/5</div>
+                  <div class="flex-1 h-1 bg-gray-200"></div>
+                </div>
+
+                <!-- 个人信息表单 -->
+                <form id="step-1-form" class="space-y-8">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Name <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your name" id="name">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Gender <span class="text-red-500">*</span></label>
+                      <select class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg" id="gender">
+                        <option>Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Date of Birth <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                             type="text"
+                             id="birthdate"
+                             class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                             placeholder="yyyy/mm/dd"
+                             readonly
+                             />
+                    </div>
+
+                    <!-- 引入 flatpickr CSS 和 JS -->
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css ">
+                    <script src="https://cdn.jsdelivr.net/npm/flatpickr "></script>
+
+                    <script>
+                      flatpickr(document.getElementById('birthdate'), {
+                        altInput: true,
+                        altFormat: "Y/m/d",        // 显示格式
+                        dateFormat: "Y-m-d",        // 提交格式（ISO）
+                        maxDate: "today",           // 不允许选择今天以后的日期
+                        locale: {
+                          firstDayOfWeek: 1         // 周一开始
+                        }
+                      });
+                    </script>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Nationality <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your nationality" id="nationality">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Contact Information <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your contact information" id="contact">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Email Address <span class="text-red-500">*</span></label>
+                      <input type="email" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your email address" id="email">
+                    </div>
+                  </div>
+
+                  <!-- 提交按钮 -->
+                  <div class="flex justify-between">
+                    <button type="button" class="px-6 py-3 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                      <i class="fa fa-arrow-left mr-2"></i> Previous Step
+                    </button>
+                    <button type="button" class="px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors flex items-center" onclick="nextStep(1)">
+                      Save and Continue <i class="fa fa-arrow-right ml-2"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- 选择项目 -->
+              <div id="step-2" class="step hidden">
+                <div class="mb-8">
+                  <h2 class="text-3xl font-bold text-dark mb-2">Select Program</h2>
+                  <p class="text-gray-600">
+                    Please choose your intended level of study, major, intake semester, and application type.
+                  </p>
+                </div>
+
+                <!-- 表单步骤指示器 -->
+                <div class="flex justify-between items-center mb-10">
+                  <div class="flex-1 h-1 bg-gray-200">
+                    <div class="h-full bg-primary" style="width: 40%"></div>
+                  </div>
+                  <div class="mx-4 text-sm font-medium text-gray-500">Step 2/5</div>
+                  <div class="flex-1 h-1 bg-gray-200"></div>
+                </div>
+
+                <!-- 选择项目表单 -->
+                <form id="step-2-form" class="space-y-8">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Level of Study <span class="text-red-500">*</span></label>
+                      <select class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg" id="educationLevel">
+                        <option value="">Select</option>
+                        <option value="bachelor">Bachelor's Degree</option>
+                        <option value="postgraduate">Master's Degree</option>
+                        <option value="doctorate">Doctoral Degree</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Major <span class="text-red-500">*</span></label>
+                      <select class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg" id="major">
+                        <option value="">Select</option>
+                        <!-- 专业选项将通过JavaScript动态生成 -->
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Intake Semester <span class="text-red-500">*</span></label>
+                      <select class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg" id="semester">
+                        <option>Select</option>
+                        <option>Fall 2025</option>
+                        <option>Spring 2026</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Application Type <span class="text-red-500">*</span></label>
+                      <select class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg" id="applicationType">
+        <option>Select</option>
+        <option>International Student</option>
+        <option>Domestic Student</option>
+      </select>
+                    </div>
+                  </div>
+                </form>
+
+                <script>
+                  // 定义各教育水平对应的专业选项
+                  const majorOptions = {
+                    bachelor: [
+                      { value: "biomedical", text: "Biomedical Engineering" },
+                      { value: "computer", text: "Computer Science" },
+                      { value: "electronic", text: "Electronic Engineering" },
+                      { value: "environmental", text: "Environmental Science" },
+                      { value: "finance", text: "Finance" },
+                      { value: "psychology", text: "Psychology" }
+                    ],
+                    postgraduate: [
+                      { value: "data", text: "Data Science" },
+                      { value: "ece", text: "Electronic and Computer Engineering" },
+                      { value: "finance-pg", text: "Finance" },
+                      { value: "ir", text: "International Relationship" },
+                      { value: "mba", text: "MBA" },
+                      { value: "policy", text: "Public Policy" }
+                    ],
+                    doctorate: [
+                      { value: "aics", text: "Artificial Intelligence and Computer Science" },
+                      { value: "bhs", text: "Biomedicine and Health Sciences" },
+                      { value: "ess", text: "Economics and Social Sciences" },
+                      { value: "essd", text: "Environmental Science and Sustainable Development" },
+                      { value: "eam", text: "Engineering and Advanced Manufacturing" },
+                      { value: "hca", text: "Humanities and Creative Arts" }
+                    ]
+                  };
+
+                  // 获取DOM元素
+                  const educationLevelSelect = document.getElementById('educationLevel');
+                  const majorSelect = document.getElementById('major');
+
+                  // 初始化专业选择框
+                  function updateMajorOptions() {
+                    const selectedLevel = educationLevelSelect.value;
+    
+                    // 清空现有选项
+                    majorSelect.innerHTML = '<option value="">Select</option>';
+    
+                    // 添加对应教育水平的专业选项
+                    if (majorOptions[selectedLevel]) {
+                      majorOptions[selectedLevel].forEach(option => {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = option.value;
+                        optionElement.textContent = option.text;
+                        majorSelect.appendChild(optionElement);
+                      });
+                    }
+                  }
+
+                  // 监听教育水平选择变化
+                  educationLevelSelect.addEventListener('change', updateMajorOptions);
+                </script>
+
+
+                  <!-- 提交按钮 -->
+                  <div class="flex justify-between">
+                    <button type="button" class="px-6 py-3 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors" onclick="prevStep(2)">
+                      <i class="fa fa-arrow-left mr-2"></i> Previous Step
+                    </button>
+                    <button type="button" class="px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors flex items-center" onclick="nextStep(2)">
+                      Save and Continue <i class="fa fa-arrow-right ml-2"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- 学术背景 -->
+              <div id="step-3" class="step hidden">
+                <div class="mb-8">
+                  <h2 class="text-3xl font-bold text-dark mb-2">Academic Background</h2>
+                  <p class="text-gray-600">
+                    Please provide your academic background information.
+                  </p>
+                </div>
+
+                <!-- 表单步骤指示器 -->
+                <div class="flex justify-between items-center mb-10">
+                  <div class="flex-1 h-1 bg-gray-200">
+                    <div class="h-full bg-primary" style="width: 60%"></div>
+                  </div>
+                  <div class="mx-4 text-sm font-medium text-gray-500">Step 3/5</div>
+                  <div class="flex-1 h-1 bg-gray-200"></div>
+                </div>
+
+                <!-- 学术背景表单 -->
+                <form id="step-3-form" class="space-y-8">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Highest Level of Education <span class="text-red-500">*</span></label>
+                    <select class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg" id="highestDegree"
+                      onchange="showRelevantFields()">
+                      <option>Select</option>
+                      <option value="High School">High School</option>
+                      <option value="Bachelor's Degree">Bachelor's Degree</option>
+                      <option value="Master's Degree">Master's Degree</option>
+                      <option value="Doctoral Degree">Doctoral Degree</option>
+                    </select>
+                  </div>
+                  <!-- 高中信息 -->
+                  <div id="highSchoolInfo" class="hidden">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">High School Attended <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter the high school you graduated from" id="highSchool">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">High School GPA <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your high school GPA" id="highSchoolGPA">
+                    </div>
+                  </div>
+                  <!-- 本科信息 -->
+                  <div id="undergraduateInfo" class="hidden">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Undergraduate University <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your undergraduate university" id="undergraduateSchool">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Undergraduate Major <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your undergraduate major" id="undergraduateMajor">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Undergraduate GPA <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your undergraduate GPA" id="undergraduateGPA">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Second Major (Optional)</label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your second major" id="secondMajor">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Second Major GPA (Optional)</label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your second major GPA" id="secondMajorGPA">
+                    </div>
+                  </div>
+                  <!-- 硕士信息 -->
+                  <div id="masterInfo" class="hidden">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Undergraduate University <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your undergraduate university" id="masterUndergraduateSchool">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Undergraduate Major <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your undergraduate major" id="masterUndergraduateMajor">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Undergraduate GPA <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your undergraduate GPA" id="masterUndergraduateGPA">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Second Major (Optional)</label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your second major" id="phdSecondMajor">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Second Major GPA (Optional)</label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your second major GPA" id="phdSecondMajorGPA">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Master's University <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your Master's university" id="masterSchool">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Master's Major <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your Master's major" id="masterMajor">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Master's GPA <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your Master's GPA" id="masterGPA">
+                    </div>
+                  </div>
+                  <!-- 博士信息 -->
+                  <div id="phdInfo" class="hidden">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Undergraduate University <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your undergraduate university" id="phdUndergraduateSchool">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Undergraduate Major <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your undergraduate major" id="phdUndergraduateMajor">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Undergraduate GPA <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your undergraduate GPA" id="phdUndergraduateGPA">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Second Major (Optional)</label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your second major" id="phdSecondMajor">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Second Major GPA (Optional)</label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your second major GPA" id="phdSecondMajorGPA">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Master's University <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your Master's university" id="phdMasterSchool">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Master's Major <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your Master's major" id="phdMasterMajor">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Master's GPA <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your Master's GPA" id="phdMasterGPA">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Doctoral University <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your doctoral university" id="phdSchool">
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Doctoral Research Area <span class="text-red-500">*</span></label>
+                      <input type="text" class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="Please enter your doctoral research area" id="phdResearchDirection">
+                    </div>
+                  </div>
+
+                  <!-- 提交按钮 -->
+                  <div class="flex justify-between">
+                    <button type="button" class="px-6 py-3 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors" onclick="prevStep(3)">
+                      <i class="fa fa-arrow-left mr-2"></i> Previous Step
+                    </button>
+                    <button type="button" class="px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors flex items-center" onclick="nextStep(3)">
+                      Save and Continue <i class="fa fa-arrow-right ml-2"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- 上传材料 -->
+              <div id="step-4" class="step hidden">
+                <div class="mb-8">
+                  <h2 class="text-3xl font-bold text-dark mb-2">Upload Application Materials</h2>
+                  <p class="text-gray-600">
+                    Please upload the required application materials below. All files must be in PDF format, and each file should not exceed 5MB.
+                  </p>
+                </div>
+
+                <!-- 表单步骤指示器 -->
+                <div class="flex justify-between items-center mb-10">
+                  <div class="flex-1 h-1 bg-gray-200">
+                    <div class="h-full bg-primary" style="width: 100%"></div>
+                  </div>
+                  <div class="mx-4 text-sm font-medium text-gray-500">Step 4/4</div>
+                  <div class="flex-1 h-1 bg-gray-200"></div>
+                </div>
+
+                <!-- 上传材料表单 -->
+                <form id="step-4-form" class="space-y-8">
+
+                  <!-- 上传材料区域 -->
+                  <div class="space-y-6">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">High School Transcript <span class="text-red-500">*</span></label>
+                      <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-primary transition-colors">
+                        <div class="space-y-1 text-center">
+                          <i class="fa fa-cloud-upload text-3xl text-gray-400 mb-2"></i>
+                          <div class="flex text-sm text-gray-600">
+                            <label for="transcript" class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary/80">
+                              <span>Upload File</span>
+                              <input id="transcript" name="transcript" type="file" class="sr-only" accept=".pdf" onchange="handleFileChange(this, 'transcript-name')">
+                            </label>
+                            <p class="pl-1">or drag and drop files here</p>
+                          </div>
+                          <p class="text-xs text-gray-500">
+                            PDF format, no larger than 5MB
+                          </p>
+                        </div>
+                      </div>
+                      <div id="transcript-name" class="mt-2 text-sm text-green-600 hidden">
+                        <i class="fa fa-check-circle mr-1"></i>
+                        <span class="file-name"></span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Letters of Recommendation <span class="text-red-500">*</span></label>
+                      <div class="mt-1">
+                        <div id="recommendation-container" class="relative">
+                          <div class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-primary transition-colors">
+                            <div class="space-y-1 text-center">
+                              <i class="fa fa-cloud-upload text-3xl text-gray-400 mb-2"></i>
+                              <div class="flex text-sm text-gray-600">
+                                <label for="recommendation" class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary/80">
+                                  <span>Upload First Letter of Recommendation</span>
+                                  <input id="recommendation" name="recommendation" type="file" class="sr-only" accept=".pdf" onchange="handleFileChange(this, 'recommendation-name')">
+                                </label>
+                                <p class="pl-1">or drag and drop files here</p>
+                              </div>
+                              <p class="text-xs text-gray-500">
+                                PDF format, no larger than 5MB. Two letters are required.
+                              </p>
+                            </div>
+                          </div>
+                          <div id="recommendation-name" class="mt-2 text-sm text-green-600 hidden">
+                            <i class="fa fa-check-circle mr-1"></i>
+                            <span class="file-name"></span>
+                          </div>
+                          
+                          <div class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-primary transition-colors mt-4">
+                            <div class="space-y-1 text-center">
+                              <i class="fa fa-cloud-upload text-3xl text-gray-400 mb-2"></i>
+                              <div class="flex text-sm text-gray-600">
+                                <label for="recommendation-2" class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary/80">
+                                  <span>Upload Second Letter of Recommendation</span>
+                                  <input id="recommendation-2" name="recommendation-2" type="file" class="sr-only" accept=".pdf" onchange="handleFileChange(this, 'recommendation-2-name')">
+                                </label>
+                                <p class="pl-1">or drag and drop files here</p>
+                              </div>
+                              <p class="text-xs text-gray-500">
+                                PDF format, no larger than 5MB. Two letters are required.
+                              </p>
+                            </div>
+                          </div>
+                          <div id="recommendation-2-name" class="mt-2 text-sm text-green-600 hidden">
+                            <i class="fa fa-check-circle mr-1"></i>
+                            <span class="file-name"></span>
+                          </div>
+                        </div>
+                    </div>
+                        
+
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Personal Statement <span class="text-red-500">*</span></label>
+                      <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-primary transition-colors">
+                        <div class="space-y-1 text-center">
+                          <i class="fa fa-cloud-upload text-3xl text-gray-400 mb-2"></i>
+                          <div class="flex text-sm text-gray-600">
+                            <label for="statement" class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary/80">
+                              <span>Upload File</span>
+                              <input id="statement" name="statement" type="file" class="sr-only" accept=".pdf" onchange="handleFileChange(this, 'statement-name')">
+                            </label>
+                            <p class="pl-1">or drag and drop files here</p>
+                          </div>
+                          <p class="text-xs text-gray-500">
+                            PDF format, no larger than 5MB, and no more than 2000 words
+                          </p>
+                        </div>
+                      </div>
+                      <div id="statement-name" class="mt-2 text-sm text-green-600 hidden">
+                        <i class="fa fa-check-circle mr-1"></i>
+                        <span class="file-name"></span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Standardized Test Scores (if applicable)</label>
+                      <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-primary transition-colors">
+                        <div class="space-y-1 text-center">
+                          <i class="fa fa-cloud-upload text-3xl text-gray-400 mb-2"></i>
+                          <div class="flex text-sm text-gray-600">
+                            <label for="test-scores" class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary/80">
+                              <span>Upload File</span>
+                              <input id="test-scores" name="test-scores" type="file" class="sr-only" accept=".pdf" onchange="handleFileChange(this, 'test-scores-name')">
+                            </label>
+                            <p class="pl-1">or drag and drop files here</p>
+                          </div>
+                          <p class="text-xs text-gray-500">
+                            PDF format, no larger than 5MB (e.g., TOEFL, IELTS, SAT, etc.)
+                          </p>
+                        </div>
+                      </div>
+                      <div id="test-scores-name" class="mt-2 text-sm text-green-600 hidden">
+                        <i class="fa fa-check-circle mr-1"></i>
+                        <span class="file-name"></span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-2">Additional Supporting Documents (optional)</label>
+                      <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-primary transition-colors">
+                        <div class="space-y-1 text-center">
+                          <i class="fa fa-cloud-upload text-3xl text-gray-400 mb-2"></i>
+                          <div class="flex text-sm text-gray-600">
+                            <label for="additional" class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary/80">
+                              <span>Upload File</span>
+                              <input id="additional" name="additional" type="file" class="sr-only" accept=".pdf" onchange="handleFileChange(this, 'additional-name')">
+                            </label>
+                            <p class="pl-1">or drag and drop files here</p>
+                          </div>
+                          <p class="text-xs text-gray-500">
+                            PDF format, no larger than 5MB (e.g., award certificates, portfolios, etc.)
+                          </p>
+                        </div>
+                      </div>
+                      <div id="additional-name" class="mt-2 text-sm text-green-600 hidden">
+                        <i class="fa fa-check-circle mr-1"></i>
+                        <span class="file-name"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 附加信息 -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Additional Notes (optional)</label>
+                    <textarea class="form-input-focus block w-full px-4 py-3 border border-gray-300 rounded-lg"
+                      placeholder="Please enter additional notes"></textarea>
+                  </div>
+
+                  <!-- 提交按钮 -->
+                  <div class="flex justify-between">
+                    <button type="button" class="px-6 py-3 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors" onclick="prevStep(4)">
+                      <i class="fa fa-arrow-left mr-2"></i> Previous Step
+                    </button>
+                    <button type="button" class="px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors flex items-center" onclick="submitApplication()">
+                      Submit Application <i class="fa fa-check ml-2"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- 申请完成页面 -->
+              <div id="application-completed" class="step hidden">
+                <div class="text-center py-12">
+                  <!-- 成功图标和动画 -->
+                  <div class="mb-8">
+                    <div class="inline-flex items-center justify-center w-24 h-24 bg-green-100 rounded-full mb-6 animate-pulse">
+                      <i class="fa fa-check-circle text-5xl text-green-600"></i>
+                    </div>
+                    <h2 class="text-4xl font-bold text-dark mb-4">Application Submitted Successfully!</h2>
+                    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                      Congratulations! Your application has been successfully submitted to Virtual University . Our admissions team will carefully review your materials.
+                    </p>
+                  </div>
+
+                  <!-- 申请信息卡片 -->
+                  <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 max-w-2xl mx-auto">
+                    <h3 class="text-2xl font-bold text-dark mb-6 text-center">Application Details</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div class="text-left">
+                        <div class="flex items-center mb-3">
+                          <i class="fa fa-user text-primary mr-3"></i>
+                          <span class="font-medium text-gray-700">Applicant:</span>
+                          <span class="ml-2 text-dark" id="success-applicant-name">Zhang San</span>
+                        </div>
+                        <div class="flex items-center mb-3">
+                          <i class="fa fa-graduation-cap text-primary mr-3"></i>
+                          <span class="font-medium text-gray-700">Application Program:</span>
+                          <span class="ml-2 text-dark" id="success-program">Computer Science</span>
+                        </div>
+                        <div class="flex items-center mb-3">
+                          <i class="fa fa-calendar text-primary mr-3"></i>
+                          <span class="font-medium text-gray-700">Term of Entry:</span>
+                          <span class="ml-2 text-dark" id="success-semester">Fall 2025</span>
+                        </div>
+                      </div>
+                      <div class="text-left">
+                        <div class="flex items-center mb-3">
+                          <i class="fa fa-envelope text-primary mr-3"></i>
+                          <span class="font-medium text-gray-700">Email Address:</span>
+                          <span class="ml-2 text-dark" id="success-email">example@email.com</span>
+                        </div>
+                        <div class="flex items-center mb-3">
+                          <i class="fa fa-clock-o text-primary mr-3"></i>
+                          <span class="font-medium text-gray-700">Submission Date:</span>
+                          <span class="ml-2 text-dark" id="success-time"></span>
+                        </div>
+                        <div class="flex items-center mb-3">
+                          <i class="fa fa-file-text text-primary mr-3"></i>
+                          <span class="font-medium text-gray-700">Application ID:</span>
+                          <span class="ml-2 text-dark" id="success-id"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 后续步骤 -->
+                  <div class="bg-light rounded-2xl p-8 mb-8 max-w-3xl mx-auto">
+                    <h3 class="text-2xl font-bold text-dark mb-6 text-center">Next Steps</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div class="text-center">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                          <i class="fa fa-envelope text-white text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-dark mb-2">Confirmation Email</h4>
+                        <p class="text-gray-600 text-sm">Our admissions team will carefully review your application materials.</p>
+                      </div>
+                      <div class="text-center">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                          <i class="fa fa-search text-white text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-dark mb-2">Application Review</h4>
+                        <p class="text-gray-600 text-sm">Our admissions team will carefully review your application materials.</p>
+                      </div>
+                      <div class="text-center">
+                        <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                          <i class="fa fa-phone text-white text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-dark mb-2">Interview Notification</h4>
+                        <p class="text-gray-600 text-sm">If an interview is required, we will notify you in advance with specific arrangements.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 重要提醒 -->
+                  <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-8 max-w-2xl mx-auto">
+                    <div class="flex items-start">
+                      <i class="fa fa-exclamation-triangle text-yellow-600 text-xl mr-3 mt-1"></i>
+                      <div class="text-left">
+                        <h4 class="font-bold text-yellow-800 mb-2">Important Notes</h4>
+                        <ul class="text-yellow-700 text-sm space-y-1">
+                          <li>• Please ensure your email address is correct to receive important notifications.</li>
+                          <li>• The application review process typically takes 4–6 weeks.</li>
+                          <li>• If you have any questions, please contact our Admissions Office.</li>
+                          <li>• Please keep your mobile phone accessible in case we need to reach you.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 操作按钮 -->
+                  <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="window.location.href='index.html'" class="px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center">
+                      <i class="fa fa-home mr-2"></i> Return to Homepage
+                    </button>
+                    <button onclick="openAI()" class="px-8 py-3 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center">
+                      <i class="fa fa-comments-o mr-2"></i> AI Assistant
+                    </button>
+                    <button onclick="printApplication()" class="px-8 py-3 bg-secondary text-white font-medium rounded-lg hover:bg-secondary/90 transition-colors flex items-center justify-center">
+                      <i class="fa fa-print mr-2"></i> Print Application
+                    </button>
+                  </div>
+
+                  <!-- 联系信息 -->
+                  <div class="mt-12 text-center">
+                    <p class="text-gray-500 mb-2">If you have any questions, please contact us:</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center text-sm text-gray-600">
+                      <span><i class="fa fa-phone mr-1"></i>  Admissions Hotline: 400-123-4567</span>
+                      <span><i class="fa fa-envelope mr-1"></i> Email: admissions@university.edu</span>
+                      <span><i class="fa fa-clock-o mr-1"></i> Office Hours: Monday – Friday, 9:00 AM – 5:00 PM</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 申请成功提醒页面 -->
+  <div id="success-reminder" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl p-10 max-w-lg w-full text-center">
+      <div class="mb-6">
+        <i class="fa fa-check-circle text-green-500 text-6xl mb-4"></i>
+        <h2 class="text-3xl font-bold text-dark mb-2">Application Submitted Successfully!</h2>
+        <p class="text-gray-700 mb-4">Your application has been successfully submitted. We will contact you as soon as possible. Please check your email and mobile phone regularly.</p>
+      </div>
+      <button onclick="window.location.href='index.html'" class="px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors">
+        Return to Homepage
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function nextStep(currentStep) {
+      const steps = document.querySelectorAll('.step');
+      steps[currentStep - 1].classList.add('hidden');
+      steps[currentStep].classList.remove('hidden');
+
+      // 更新步骤导航样式
+      const stepNavItems = document.querySelectorAll('#step-nav > div');
+      stepNavItems[currentStep - 1].querySelector('div').classList.remove('bg-accent');
+      stepNavItems[currentStep - 1].querySelector('div').classList.add('bg-white/20');
+      stepNavItems[currentStep].querySelector('div').classList.remove('bg-white/20');
+      stepNavItems[currentStep].querySelector('div').classList.add('bg-accent');
+    }
+
+    function prevStep(currentStep) {
+      const steps = document.querySelectorAll('.step');
+      steps[currentStep - 1].classList.add('hidden');
+      steps[currentStep - 2].classList.remove('hidden');
+
+      // 更新步骤导航样式
+      const stepNavItems = document.querySelectorAll('#step-nav > div');
+      stepNavItems[currentStep - 1].querySelector('div').classList.remove('bg-accent');
+      stepNavItems[currentStep - 1].querySelector('div').classList.add('bg-white/20');
+      stepNavItems[currentStep - 2].querySelector('div').classList.remove('bg-white/20');
+      stepNavItems[currentStep - 2].querySelector('div').classList.add('bg-accent');
+    }
+
+    function showRelevantFields() {
+      const highestDegree = document.getElementById('highestDegree').value;
+      const highSchoolInfo = document.getElementById('highSchoolInfo');
+      const undergraduateInfo = document.getElementById('undergraduateInfo');
+      const masterInfo = document.getElementById('masterInfo');
+      const phdInfo = document.getElementById('phdInfo');
+
+      highSchoolInfo.classList.add('hidden');
+      undergraduateInfo.classList.add('hidden');
+      masterInfo.classList.add('hidden');
+      phdInfo.classList.add('hidden');
+
+      if (highestDegree === '高中') {
+        highSchoolInfo.classList.remove('hidden');
+      } else if (highestDegree === '本科') {
+        undergraduateInfo.classList.remove('hidden');
+      } else if (highestDegree === '硕士研究生') {
+        masterInfo.classList.remove('hidden');
+      } else if (highestDegree === '博士研究生') {
+        phdInfo.classList.remove('hidden');
+      }
+    }
+
+    function handleFileChange(input, fileNameId) {
+      const fileInput = input;
+      const fileNameDisplay = document.getElementById(fileNameId);
+      if (fileInput.files && fileInput.files.length > 0) {
+        fileNameDisplay.classList.remove('hidden');
+        fileNameDisplay.querySelector('.file-name').textContent = fileInput.files[0].name;
+      } else {
+        fileNameDisplay.classList.add('hidden');
+        fileNameDisplay.querySelector('.file-name').textContent = '';
+      }
+    }
+
+    function submitApplication() {
+      // 隐藏所有 step
+      const steps = document.querySelectorAll('.step');
+      steps.forEach(step => step.classList.add('hidden'));
+      // 显示成功提醒
+      document.getElementById('success-reminder').classList.remove('hidden');
+    }
+
+    function printApplication() {
+      window.print();
+    }
+
+    function openAI() {
+      // 这里可以添加AI咨询的逻辑
+      alert('AI咨询功能暂未实现。');
+    }
+  </script>
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center space-x-2 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <i class="fa fa-graduation-cap text-white text-xl"></i>
+            </div>
+            <span class="text-xl font-bold">Virtual University</span>
+          </div>
+          <p class="text-gray-400 mb-6">
+            Virtual University is committed to providing a world-class educational and research environment and cultivating leaders with a global perspective.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-weixin"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+              <i class="fa fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Quick Links</h3>
+          <ul class="space-y-3">
+            <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="undergraduate1.html" class="text-gray-400 hover:text-white transition-colors">Undergraduate</a></li>
+            <li><a href="master1.html" class="text-gray-400 hover:text-white transition-colors">Master</a></li>
+            <li><a href="phd.html" class="text-gray-400 hover:text-white transition-colors">PhD</a></li>
+            <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Resources</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Academic Calendar</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tuition Fees and Scholarships</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Campus life</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">International students</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Career development</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Alumni network</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-bold mb-6">Subscribe us</h3>
+          <p class="text-gray-400 mb-4">
+            Subscribe to our email to get the latest admissions information and campus events.
+          </p>
+          <form class="mb-4">
+            <div class="flex">
+              <input type="email" placeholder="Enter your email" class="px-4 py-2 bg-white/10 text-white border border-white/20 rounded-l-lg focus:outline-none focus:border-primary w-full">
+              <button type="submit" class="px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-primary/90 transition-colors">
+                Subscribe
+              </button>
+            </div>
+          </form>
+          <p class="text-gray-400 text-sm">
+            We respect your privacy and will not share your information with any third party.
+          </p>
+        </div>
+      </div>
+      
+      <div class="border-t border-white/10 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            &copy; 2025 Virtual University. All rights reserved.
+          </p>
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Use</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Site Map</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+                
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2', 'shadow-md');
+        navbar.classList.remove('py-3');
+      } else {
+        navbar.classList.add('py-3');
+        navbar.classList.remove('py-2', 'shadow-md');
+      }
+    });
+    
+    // 移动端菜单切换
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // FAQ 切换
+    document.querySelectorAll('.faq-toggle').forEach(toggle => {
+      toggle.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        const icon = this.querySelector('i');
+        
+        // 切换内容显示/隐藏
+        content.classList.toggle('hidden');
+        
+        // 切换图标旋转
+        if (content.classList.contains('hidden')) {
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // 如果是移动端，点击导航链接后关闭菜单
+          const mobileMenu = document.getElementById('mobile-menu');
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
